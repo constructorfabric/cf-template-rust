@@ -266,9 +266,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "122ca6f4c80545fd628b67191ff82073077bc3fcd40dbaba8260f46849af2d2b"
+checksum = "68bcb1b0a02181275178306cdb5abd150759763bda7ff4b73b22bf3dc6e1a234"
 dependencies = [
  "anyhow",
  "arc-swap",
@@ -305,9 +305,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-errors"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b49b063e7d8e90fe7e067430498e83307f47b46ae888d0c2c9e85fb046003f3c"
+checksum = "739fb3610dbf539f17e402ecc05c5bbec7f9c4482354accd97c94598763f7ce8"
 dependencies = [
  "axum",
  "http",
@@ -318,9 +318,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-errors-macro"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "965066ab48af2933da3bf4281401ea9b031baf320a3fe1b85edad40463a466d4"
+checksum = "ec93b189c576e445de945f4ebb46f83c0e72a4f8c188091c70826a764a23f77d"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -331,9 +331,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-macros"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "040d04b1508b9c13b57257df6eea672a8b5cde9ace6d6f76a6184a07489140fd"
+checksum = "9c6a1aef0b1fb4310cc31787d06ce658e7519f33e0d27eadebc85e435c9d95ae"
 dependencies = [
  "heck",
  "proc-macro2",
@@ -344,9 +344,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-odata"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0105cdac77b550176039109959ffb34f2a5dd19bd4a24a1113577f34f876316c"
+checksum = "bc801fca77ca77415eec060fdd403a3fb09d5b4d1148a6564d397cbf561a01ef"
 dependencies = [
  "base64",
  "bigdecimal",
@@ -365,9 +365,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-sdk"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28e9d1883f89fa59df2c9e518db353475828c597ad6226ac3a218e75195f4865"
+checksum = "f298daa4ace4446829108302fa15cc43c1a8d7f439e85a0aae25e8c7570d3d32"
 dependencies = [
  "cf-modkit-odata",
  "cf-modkit-security",
@@ -377,9 +377,9 @@ dependencies = [
 
 [[package]]
 name = "cf-modkit-security"
-version = "0.2.14"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "83df214179026f3a34b09e3a78d45845bbaa2a49453aca913fd8058438127ca2"
+checksum = "63b74782d46a031da5ba99efcddd3a844c4176e3bfa1df917156576c24342e5a"
 dependencies = [
  "anyhow",
  "postcard",
@@ -391,9 +391,9 @@ dependencies = [
 
 [[package]]
 name = "cf-system-sdk-directory"
-version = "0.1.15"
+version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0999bd26cac2745ca7e5154bb74e6c3c8bbfbb0aefaa9f1a12f5d1bd246f07ae"
+checksum = "fb71588c4d18ed8ca1c37e65e84d4fe6b92e62b9db2c38121016623609a46bf2"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -401,9 +401,9 @@ dependencies = [
 
 [[package]]
 name = "cf-system-sdks"
-version = "0.1.15"
+version = "0.1.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0b095f49f696ff6fa6f34c21736cd4c36d3c716083625e2ee174578035f25e8"
+checksum = "b2a09c2c6942adff6eba04ddb36c926fcf74d24a25315385e7d7c93ba4d2a612"
 dependencies = [
  "cf-system-sdk-directory",
 ]

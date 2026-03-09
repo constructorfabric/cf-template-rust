@@ -14,7 +14,7 @@ pedantic = "deny"
 nursery = "deny"
 
 [workspace.dependencies]
-cf-modkit = { version = "0.2.14", default-features = false }
+cf-modkit = { version = "0.4.0", default-features = false }
 
 tokio = { version = "1.49.0", features = ["full"] }
 tokio-util = "0.7.18"
