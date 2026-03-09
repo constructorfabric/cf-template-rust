@@ -1,9 +1,6 @@
 server:
   home_dir: "~/.cyberfabric"
-
-# Logging configuration (global section)
 logging:
-  # global section
   default:
     console_level: info
 tracing:
@@ -12,10 +9,10 @@ tracing:
     enabled: false
     exporter:
       kind: otlp_grpc
-# Per-module configurations using new structure
 modules:
   hello-world:
-    config: {}
+    config:
+      interval: 1
     metadata:
       package: "hello-world"
       version: "0.0.1"

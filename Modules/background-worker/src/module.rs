@@ -1,34 +1,31 @@
-use std::sync::{Arc, OnceLock};
-
+use anyhow::Context;
 use modkit::{Module, ModuleCtx, RunnableCapability, async_trait};
+use std::sync::{Arc, OnceLock};
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
 
 use background_worker_sdk::PokemonClientV1;
 
+use crate::config::{Config, default_interval};
 use crate::domain::local_client::PokemonLocalClient;
 use crate::domain::service::PokemonService;
 use crate::infra::PokemonHttpRepository;
 
 #[modkit::module(name = "background-worker", capabilities = [stateful])]
+#[derive(Default)]
 pub struct BackgroundWorkerModule {
+    config: OnceLock<Config>,
     service: OnceLock<Arc<PokemonService>>,
     task_handle: Arc<Mutex<Option<JoinHandle<()>>>>,
-}
-
-impl Default for BackgroundWorkerModule {
-    fn default() -> Self {
-        Self {
-            service: OnceLock::new(),
-            task_handle: Arc::new(Mutex::new(None)),
-        }
-    }
 }
 
 #[async_trait]
 impl Module for BackgroundWorkerModule {
     async fn init(&self, ctx: &ModuleCtx) -> modkit::Result<()> {
         tracing::info!("Initializing background-worker module");
+        self.config
+            .set(ctx.config::<Config>()?)
+            .map_err(|_| anyhow::anyhow!("config already initialized"))?;
 
         let repository = Arc::new(PokemonHttpRepository::new()?);
         let service = Arc::new(PokemonService::new(repository));
@@ -55,11 +52,18 @@ impl RunnableCapability for BackgroundWorkerModule {
         let service = self
             .service
             .get()
-            .ok_or_else(|| anyhow::anyhow!("service not initialized — was init() called?"))?
+            .context("service not initialized — was init() called?")?
             .clone();
 
+        let interval_secs = self
+            .config
+            .get()
+            .map(|c| c.interval)
+            .unwrap_or_else(default_interval);
+
         let handle = tokio::spawn(async move {
-            let mut interval = tokio::time::interval(tokio::time::Duration::from_secs(5));
+            let mut interval =
+                tokio::time::interval(tokio::time::Duration::from_secs(interval_secs.get()));
             interval.set_missed_tick_behavior(tokio::time::MissedTickBehavior::Skip);
 
             loop {
