@@ -51,10 +51,10 @@ sea-orm-migration = { version = "1.1", default-features = false }
 thiserror = "2.0"
 
 # ModKit
-cf-modkit = { version = "0.4.0", default-features = false, features = ["db"] }
-cf-modkit-db = { version = "0.4.0" }
-cf-modkit-db-macros = { version = "0.4.0" }
-cf-modkit-security = { version = "0.4.0" }
-cf-modkit-odata = { version = "0.4.0", features = ["with-utoipa"] }
-cf-modkit-sdk = { version = "0.4.0" }
-cf-modkit-macros = { version = "0.4.0" }
+cf-modkit = { version = "0.5.2", default-features = false, features = ["db"] }
+cf-modkit-db = { version = "0.5.2" }
+cf-modkit-db-macros = { version = "0.5.2" }
+cf-modkit-security = { version = "0.5.2" }
+cf-modkit-odata = { version = "0.5.2", features = ["with-utoipa"] }
+cf-modkit-sdk = { version = "0.5.2" }
+cf-modkit-macros = { version = "0.5.2" }

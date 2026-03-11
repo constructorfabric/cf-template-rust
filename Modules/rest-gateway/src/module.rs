@@ -35,6 +35,7 @@ use parking_lot::Mutex;
 use anyhow::Result;
 use axum::http::StatusCode;
 use axum::{Router, middleware::from_fn, routing::get};
+use modkit::SystemCapability;
 use tokio_util::sync::CancellationToken;
 use tower_http::{
     request_id::{PropagateRequestIdLayer, SetRequestIdLayer},
@@ -59,7 +60,7 @@ use crate::web;
 /// ```
 #[modkit::module(
     name = "rest-host",
-    capabilities = [rest_host, stateful],
+    capabilities = [rest_host, stateful, system],
     lifecycle(entry = "serve", stop_timeout = "30s", await_ready)
 )]
 pub struct RestHost {
@@ -82,6 +83,8 @@ impl Default for RestHost {
         }
     }
 }
+
+impl SystemCapability for RestHost {}
 
 // ── Private helpers ──────────────────────────────────────────────────────────
 

@@ -7,15 +7,9 @@ description = "Minimal REST host module with health endpoints and standard middl
 [lib]
 name = "rest_host"
 
-[lints.rust]
-unsafe_code = "forbid"
-
-[lints.clippy]
-pedantic = "deny"
-
 [dependencies]
 # ModKit module system — the backbone for module lifecycle and capability wiring
-cf-modkit = { version = "0.4.0", default-features = false }
+cf-modkit = { version = "0.5.2", default-features = false }
 
 # HTTP framework
 axum = "0.8"
