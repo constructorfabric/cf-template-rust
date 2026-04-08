@@ -3,12 +3,17 @@ server:
 logging:
   default:
     console_level: info
-tracing:
-  enabled: false
+opentelemetry:
+  resource:
+    service_name: "cyberfabric"
+    attributes:
+      project_name: "hello_world"
+  exporter:
+    kind: otlp_grpc
+  tracing:
+    enabled: false
   metrics:
     enabled: false
-    exporter:
-      kind: otlp_grpc
 modules:
   hello-world:
     config:

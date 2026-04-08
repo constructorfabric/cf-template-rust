@@ -9,7 +9,7 @@ name = "rest_host"
 
 [dependencies]
 # ModKit module system — the backbone for module lifecycle and capability wiring
-cf-modkit = { version = "0.5.2", default-features = false }
+cf-modkit = { version = "0.6.2" }
 
 # HTTP framework
 axum = "0.8"
