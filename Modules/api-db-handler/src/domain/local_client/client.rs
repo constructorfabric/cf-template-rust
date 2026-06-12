@@ -1,8 +1,8 @@
 use std::sync::Arc;
 
-use modkit::async_trait;
-use modkit_macros::domain_model;
-use modkit_odata::{ODataQuery, Page};
+use toolkit::async_trait;
+use toolkit_macros::domain_model;
+use toolkit_odata::{ODataQuery, Page};
 use uuid::Uuid;
 
 #[cfg(feature = "odata")]

@@ -3,12 +3,6 @@
 version = 4
 
 [[package]]
-name = "adler2"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
-
-[[package]]
 name = "ahash"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -85,15 +79,6 @@ name = "anyhow"
 version = "1.0.102"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
-
-[[package]]
-name = "arbitrary"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3d036a3c4ab069c7b410a2ce876bd74808d2d0888a82667669f8e783a898bf1"
-dependencies = [
- "derive_arbitrary",
-]
 
 [[package]]
 name = "arc-swap"
@@ -419,23 +404,42 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit"
-version = "0.6.10"
+name = "cf-gears-system-sdk-directory"
+version = "0.1.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2acf3c8f55cc61fea64a6384fdbac70f97bf2a623e35c6c93a29559bfaf01b7a"
+checksum = "edc6fb279a20587de3dbade1e3a74b5e211177a42bd3dfc3dc9efdfce7a50e89"
+dependencies = [
+ "anyhow",
+ "async-trait",
+]
+
+[[package]]
+name = "cf-gears-system-sdks"
+version = "0.1.35"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ce722c28c193660dcf02ca55bc36cb78bd4fc00d927d883b45fdb15da27e0043"
+dependencies = [
+ "cf-gears-system-sdk-directory",
+]
+
+[[package]]
+name = "cf-gears-toolkit"
+version = "0.6.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7153bf364825777e4cdd5afda521beaa2bb6f4b57f44fc1205b887124ccd682d"
 dependencies = [
  "anyhow",
  "arc-swap",
  "async-trait",
  "axum",
- "cf-modkit-canonical-errors",
- "cf-modkit-db",
- "cf-modkit-errors",
- "cf-modkit-macros",
- "cf-modkit-odata",
- "cf-modkit-sdk",
- "cf-modkit-utils",
- "cf-system-sdks",
+ "cf-gears-system-sdks",
+ "cf-gears-toolkit-canonical-errors",
+ "cf-gears-toolkit-db",
+ "cf-gears-toolkit-gts",
+ "cf-gears-toolkit-macros",
+ "cf-gears-toolkit-odata",
+ "cf-gears-toolkit-sdk",
+ "cf-gears-toolkit-utils",
  "dashmap",
  "figment",
  "futures-core",
@@ -465,29 +469,29 @@ dependencies = [
  "urlencoding",
  "utoipa",
  "uuid",
- "zip",
 ]
 
 [[package]]
-name = "cf-modkit-canonical-errors"
+name = "cf-gears-toolkit-canonical-errors"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4744fbabb7651e264b83b21085072748c7408824705128086748b0a0080bfaad"
+checksum = "76a27b0232b4f2792fd7024c62e710896e53ee07444fe143b14a99ee94ec8ba5"
 dependencies = [
  "axum",
- "cf-modkit-canonical-errors-macro",
+ "cf-gears-toolkit-canonical-errors-macro",
  "http",
  "serde",
  "serde_json",
+ "thiserror",
  "tracing",
  "utoipa",
 ]
 
 [[package]]
-name = "cf-modkit-canonical-errors-macro"
+name = "cf-gears-toolkit-canonical-errors-macro"
 version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5cd2c4573fb82c4dd2e30f7f3fa8859036826e037631c46356a3cea74709413"
+checksum = "e57391e4dbd4eb5512202c63710154c18e7be12ef9a3e492aab32ead073d0c99"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -496,18 +500,18 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit-db"
+name = "cf-gears-toolkit-db"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22749da436e296c128740574af3b70eb753bcad18ac7599c7759388731918a01"
+checksum = "30239fe133cd0cc7c85cc58140dc1cd5516ff706a26dd3789f7fb2b4cd6fd004"
 dependencies = [
  "anyhow",
  "async-trait",
  "bigdecimal",
- "cf-modkit-db-macros",
- "cf-modkit-odata",
- "cf-modkit-security",
- "cf-modkit-utils",
+ "cf-gears-toolkit-db-macros",
+ "cf-gears-toolkit-odata",
+ "cf-gears-toolkit-security",
+ "cf-gears-toolkit-utils",
  "chrono",
  "dashmap",
  "dirs",
@@ -528,10 +532,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit-db-macros"
+name = "cf-gears-toolkit-db-macros"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d60f5a2fb4f50cb38fd0dc0d7ef9933a9f0823a19687b044af6d6c2dd70b3d9b"
+checksum = "25d7fe946ed2d9ad129e2e738439656b0959299d7e3b7831182ddb874321f05f"
 dependencies = [
  "heck 0.5.0",
  "proc-macro-error2",
@@ -541,37 +545,39 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit-errors"
-version = "0.7.0"
+name = "cf-gears-toolkit-gts"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8dc5526c8dc60fb57a63a119140ed0996eb5d7c8748e74a5b53ace92fa037268"
+checksum = "fdb42809a45903114573ec24e56fb0a5b23273313e75411e5e395d7d66eb626d"
 dependencies = [
- "axum",
- "http",
+ "anyhow",
+ "cf-gears-toolkit-gts-macros",
+ "gts",
+ "gts-macros",
+ "inventory",
+ "schemars",
  "serde",
  "serde_json",
- "tracing",
- "utoipa",
 ]
 
 [[package]]
-name = "cf-modkit-errors-macro"
-version = "0.6.3"
+name = "cf-gears-toolkit-gts-macros"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "972d99140d0937911b2b0e368ec06a6bc416b77a37cf94688f45fc2a4e2a9b7e"
+checksum = "6e07cd94a901b36d3d2f2a2d406fd92b0f29e09ecc009e788214d2794454c6e1"
 dependencies = [
+ "gts-macros",
+ "proc-macro-crate",
  "proc-macro2",
  "quote",
- "serde",
- "serde_json",
  "syn 2.0.117",
 ]
 
 [[package]]
-name = "cf-modkit-macros"
+name = "cf-gears-toolkit-macros"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e793c53aaab524fef22443b6e2568d6ba7aee892acabf85451decf517899025"
+checksum = "a48041ece24d732e959aedc5e42fd0218c839d4dbd90e5a62123475ec52f9ee9"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",
@@ -581,15 +587,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit-odata"
+name = "cf-gears-toolkit-odata"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d88116ec506d129a3b8ca109443f464ea3528002a187d797576064d8632407fc"
+checksum = "6934efd89a3e93bfa556e34c0623e1056f8188b6e38c6c5bb7a9007f4d39f13f"
 dependencies = [
  "base64",
  "bigdecimal",
- "cf-modkit-errors",
- "cf-modkit-errors-macro",
+ "cf-gears-toolkit-canonical-errors",
  "chrono",
  "chrono-tz",
  "hex",
@@ -599,26 +604,27 @@ dependencies = [
  "serde_json",
  "sha2",
  "thiserror",
+ "tracing",
  "uuid",
 ]
 
 [[package]]
-name = "cf-modkit-sdk"
+name = "cf-gears-toolkit-sdk"
 version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "32418515431f41b64d5deed2e21f7b329918341c3dcdf356e1005bce070a2353"
+checksum = "0badb63b2313e71f6c88bbd225cb6190fa22354bc9baf6f5c7f3dc7253f9b6e2"
 dependencies = [
- "cf-modkit-odata",
- "cf-modkit-security",
+ "cf-gears-toolkit-odata",
+ "cf-gears-toolkit-security",
  "futures-core",
  "pin-project-lite",
 ]
 
 [[package]]
-name = "cf-modkit-security"
+name = "cf-gears-toolkit-security"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "980a7564897e2e90d8555c1a294ee4fe67de10b11c41f4f6da05a5486c7a155d"
+checksum = "f66f76f56640172c08138524114358423cc0b2142380a60cfbcee77df617e7ff"
 dependencies = [
  "anyhow",
  "postcard",
@@ -629,35 +635,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "cf-modkit-utils"
+name = "cf-gears-toolkit-utils"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e8daf588a9f311cbd7dc28ed3ae3c1e642d5c8117788e7f24414ad8e781c530"
+checksum = "6b361ba77d6cdf16f87ae2cc6e7c092d1424101ecab435c7ef805baf68f0e9b8"
 dependencies = [
  "humantime",
  "regex",
  "secrecy",
  "serde",
  "zeroize",
-]
-
-[[package]]
-name = "cf-system-sdk-directory"
-version = "0.1.35"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12cad531f9ff82b8eeebad81b2bcb980733e85af1aade8e5c9a20a3957ee0468"
-dependencies = [
- "anyhow",
- "async-trait",
-]
-
-[[package]]
-name = "cf-system-sdks"
-version = "0.1.35"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "422482ef901f8ba158779e8a87d7abb38e250995429ef5b36abe406640c25e8a"
-dependencies = [
- "cf-system-sdk-directory",
 ]
 
 [[package]]
@@ -758,15 +745,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19d374276b40fb8bbdee95aef7c7fa6b5316ec764510eb64b8dd0e2ed0d7e7f5"
 
 [[package]]
-name = "crc32fast"
-version = "1.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9481c1c90cbf2ac953f07c8d4a58aa3945c425b7185c9154d67a65e4230da511"
-dependencies = [
- "cfg-if",
-]
-
-[[package]]
 name = "crossbeam-queue"
 version = "0.3.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -864,17 +842,6 @@ checksum = "7cd812cc2bc1d69d4764bd80df88b4317eaef9e773c75226407d9bc0876b211c"
 dependencies = [
  "powerfmt",
  "serde_core",
-]
-
-[[package]]
-name = "derive_arbitrary"
-version = "1.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e567bd82dcff979e4b03460c307b3cdc9e96fde3d73bed1496d2bc75d9dd62a"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.117",
 ]
 
 [[package]]
@@ -1077,16 +1044,6 @@ name = "find-msvc-tools"
 version = "0.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5baebc0774151f905a1a2cc41989300b1e6fbb29aff0ceffa1064fdd3088d582"
-
-[[package]]
-name = "flate2"
-version = "1.1.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "843fba2746e448b37e26a819579957415c8cef339bf08564fe8b7ddbd959573c"
-dependencies = [
- "miniz_oxide",
- "zlib-rs",
-]
 
 [[package]]
 name = "fluent-uri"
@@ -1312,9 +1269,9 @@ checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
 name = "gts"
-version = "0.9.3"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2a5643b7f259cc57b8822d78e7de34e6e31079a36ffb0a75ee8f685fd53595e5"
+checksum = "2b4da3d02018e3da21fed237cea4ef17bdb7fd4bea4c7d9550573cbcbb66d61b"
 dependencies = [
  "gts-id",
  "jsonschema",
@@ -1331,18 +1288,18 @@ dependencies = [
 
 [[package]]
 name = "gts-id"
-version = "0.9.3"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9d8c6ff0c4fcdf993d2279f44a9edf1e66060fe55c59d5ce06b63a6fafaeafa"
+checksum = "7375046849cd80b1db1ed549272eb2fab826b13b13e9efb4333a6ec606070c8c"
 dependencies = [
  "thiserror",
 ]
 
 [[package]]
 name = "gts-macros"
-version = "0.9.3"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8fb502ca3db36348a24ccefcf7fa4eac1210c32544c718682cd5838503963004"
+checksum = "8e437588827fff359c11f572a5d05f74a776546230108c3dc6263d131d7cac2b"
 dependencies = [
  "gts-id",
  "proc-macro2",
@@ -1433,7 +1390,7 @@ name = "hello-world"
 version = "0.0.1"
 dependencies = [
  "anyhow",
- "cf-modkit",
+ "cf-gears-toolkit",
  "serde",
  "tokio",
  "tokio-util",
@@ -1963,16 +1920,6 @@ name = "mime"
 version = "0.3.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
-
-[[package]]
-name = "miniz_oxide"
-version = "0.8.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fa76a2c86f704bdb222d66965fb3d63269ce38518b83cb0575fca855ebb6316"
-dependencies = [
- "adler2",
- "simd-adler32",
-]
 
 [[package]]
 name = "mio"
@@ -3364,12 +3311,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "simd-adler32"
-version = "0.3.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e320a6c5ad31d271ad523dcf3ad13e2767ad8b1cb8f047f75a8aeaf8da139da2"
-
-[[package]]
 name = "simdutf8"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3806,9 +3747,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
 
 [[package]]
 name = "tokio"
-version = "1.51.1"
+version = "1.52.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f66bf9585cda4b724d3e78ab34b73fb2bbaba9011b9bfdf69dc836382ea13b8c"
+checksum = "8fc7f01b389ac15039e4dc9531aa973a135d7a4135281b12d7c1bc79fd57fffe"
 dependencies = [
  "bytes",
  "libc",
@@ -4173,9 +4114,9 @@ checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
 name = "utoipa"
-version = "5.4.0"
+version = "5.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2fcc29c80c21c31608227e0912b2d7fddba57ad76b606890627ba8ee7964e993"
+checksum = "8bde15df68e80b16c7d16b9616e80770ad158988daa56a27dccd1e55558b0160"
 dependencies = [
  "indexmap",
  "serde",
@@ -4185,9 +4126,9 @@ dependencies = [
 
 [[package]]
 name = "utoipa-gen"
-version = "5.4.0"
+version = "5.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6d79d08d92ab8af4c5e8a6da20c47ae3f61a0f1dabc1997cdf2d082b757ca08b"
+checksum = "6ba0b99ee52df3028635d93840c797102da61f8a7bb3cf751032455895b52ef8"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -4197,9 +4138,9 @@ dependencies = [
 
 [[package]]
 name = "uuid"
-version = "1.22.0"
+version = "1.23.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a68d3c8f01c0cfa54a75291d83601161799e4a89a39e0929f4b0354d88757a37"
+checksum = "144d6b123cef80b301b8f72a9e2ca4370ddec21950d0a103dd22c437006d2db7"
 dependencies = [
  "getrandom 0.4.2",
  "js-sys",
@@ -4895,39 +4836,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "zip"
-version = "4.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "caa8cd6af31c3b31c6631b8f483848b91589021b28fffe50adada48d4f4d2ed1"
-dependencies = [
- "arbitrary",
- "crc32fast",
- "flate2",
- "indexmap",
- "memchr",
- "zopfli",
-]
-
-[[package]]
-name = "zlib-rs"
-version = "0.6.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3be3d40e40a133f9c916ee3f9f4fa2d9d63435b5fbe1bfc6d9dae0aa0ada1513"
-
-[[package]]
 name = "zmij"
 version = "1.0.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b8848ee67ecc8aedbaf3e4122217aff892639231befc6a1b58d29fff4c2cabaa"
-
-[[package]]
-name = "zopfli"
-version = "0.8.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f05cd8797d63865425ff89b5c4a48804f35ba0ce8d125800027ad6017d2b5249"
-dependencies = [
- "bumpalo",
- "crc32fast",
- "log",
- "simd-adler32",
-]

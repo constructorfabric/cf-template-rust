@@ -1,4 +1,4 @@
-use modkit::async_trait;
+use toolkit::async_trait;
 
 use crate::infra::storage::db::db_err;
 use crate::infra::storage::entity::pokemon::{Column, Entity as PokemonEntity};
@@ -8,14 +8,14 @@ use crate::{domain::error::DomainError, domain::repos::PokemonRepository};
 use {{ crate_name }}_sdk::Pokemon;
 #[cfg(feature = "odata")]
 use {{ crate_name }}_sdk::odata::PokemonFilterField;
-use modkit_db::odata::LimitCfg;
+use toolkit_db::odata::LimitCfg;
 #[cfg(feature = "odata")]
-use modkit_db::odata::paginate_odata;
-use modkit_db::secure::{DBRunner, SecureEntityExt};
+use toolkit_db::odata::paginate_odata;
+use toolkit_db::secure::{DBRunner, SecureEntityExt};
 #[cfg(feature = "odata")]
-use modkit_odata::SortDir;
-use modkit_odata::{ODataQuery, Page};
-use modkit_security::AccessScope;
+use toolkit_odata::SortDir;
+use toolkit_odata::{ODataQuery, Page};
+use toolkit_security::AccessScope;
 use sea_orm::EntityTrait;
 use sea_orm::QueryFilter;
 use sea_orm::sea_query::Expr;

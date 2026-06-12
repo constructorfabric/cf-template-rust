@@ -1,5 +1,5 @@
 use anyhow::Context;
-use modkit::async_trait;
+use toolkit::async_trait;
 use modkit_http::HttpClient;
 use std::time::{Duration, UNIX_EPOCH};
 
@@ -19,7 +19,7 @@ pub struct PokemonHttpRepository {
 }
 
 impl PokemonHttpRepository {
-    pub fn new() -> modkit::Result<Self> {
+    pub fn new() -> toolkit::Result<Self> {
         Ok(Self {
             client: HttpClient::builder()
                 .no_redirects()

@@ -1,8 +1,8 @@
 use {{ crate_name }}_sdk::Pokemon;
-use modkit::async_trait;
-use modkit_db::secure::DBRunner;
-use modkit_odata::{ODataQuery, Page};
-use modkit_security::AccessScope;
+use toolkit::async_trait;
+use toolkit_db::secure::DBRunner;
+use toolkit_odata::{ODataQuery, Page};
+use toolkit_security::AccessScope;
 use uuid::Uuid;
 
 use crate::domain::error::DomainError;

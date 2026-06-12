@@ -35,7 +35,8 @@ use parking_lot::Mutex;
 use anyhow::Result;
 use axum::http::StatusCode;
 use axum::{Router, middleware::from_fn, routing::get};
-use modkit::SystemCapability;
+use toolkit::api::{OpenApiRegistry, OpenApiRegistryImpl};
+use toolkit::{ApiGatewayCapability, Gear, GearCtx, SystemCapability, async_trait};
 use tokio_util::sync::CancellationToken;
 use tower_http::{
     request_id::{PropagateRequestIdLayer, SetRequestIdLayer},
@@ -58,7 +59,7 @@ use crate::web;
 ///       bind_addr: "0.0.0.0:8080"
 ///       timeout_secs: 30
 /// ```
-#[modkit::module(
+#[toolkit::gear(
     name = "{{ project-name }}",
     capabilities = [rest_host, stateful, system],
     lifecycle(entry = "serve", stop_timeout = "30s", await_ready)
@@ -68,7 +69,7 @@ pub struct {{ project-name | pascal_case }} {
     config: OnceLock<{{ project-name | pascal_case }}Config>,
 
     /// Shared `OpenAPI` registry delegated to other `rest`-capable modules.
-    openapi_registry: Arc<modkit::OpenApiRegistryImpl>,
+    openapi_registry: Arc<OpenApiRegistryImpl>,
 
     /// Final assembled router stored by `rest_finalize` and consumed by `serve`.
     final_router: Mutex<Option<Router>>,
@@ -78,7 +79,7 @@ impl Default for {{ project-name | pascal_case }} {
     fn default() -> Self {
         Self {
             config: OnceLock::new(),
-            openapi_registry: Arc::new(modkit::OpenApiRegistryImpl::new()),
+            openapi_registry: Arc::new(OpenApiRegistryImpl::new()),
             final_router: Mutex::new(None),
         }
     }
@@ -102,7 +103,7 @@ impl {{ project-name | pascal_case }} {
     /// Returns the cached config, or an error if `init` was never called.
     ///
     /// In practice this can only be `None` if a capability method is invoked
-    /// before the `ModKit` lifecycle has run `init`, which is a framework-level
+    /// before the Toolkit lifecycle has run `init`, which is a framework-level
     /// programming error.
     fn cfg(&self) -> anyhow::Result<&{{ project-name | pascal_case }}Config> {
         self.config.get().ok_or_else(|| {
@@ -169,7 +170,7 @@ impl {{ project-name | pascal_case }} {
     }
 
     /// Builds a standalone router (health endpoints + middleware) for use when
-    /// the `ModKit` REST pipeline has not been run (e.g. in unit tests).
+    /// the Toolkit/Gears REST pipeline has not been run (e.g. in unit tests).
     fn build_router(&self) -> anyhow::Result<Router> {
         let router = Router::new()
             .route("/health", get(web::health_check))
@@ -192,7 +193,7 @@ impl {{ project-name | pascal_case }} {
     pub(crate) async fn serve(
         self: Arc<Self>,
         cancel: CancellationToken,
-        ready: modkit::lifecycle::ReadySignal,
+        ready: toolkit::lifecycle::ReadySignal,
     ) -> anyhow::Result<()> {
         let addr = parse_bind_addr_str(&self.cfg()?.bind_addr)?;
         let router = self.take_or_build_router()?;
@@ -213,12 +214,12 @@ impl {{ project-name | pascal_case }} {
     }
 }
 
-// ── ModKit trait implementations ─────────────────────────────────────────────
+// ── Gear trait implementations ───────────────────────────────────────────────
 
-/// `Module` — loads configuration during the init phase.
-#[modkit::async_trait]
-impl modkit::Module for {{ project-name | pascal_case }} {
-    async fn init(&self, ctx: &modkit::context::ModuleCtx) -> anyhow::Result<()> {
+/// `Gear` implementation for `{{ project-name | pascal_case }}`; `init(&self, ctx: &GearCtx)` loads configuration.
+#[async_trait]
+impl Gear for {{ project-name | pascal_case }} {
+    async fn init(&self, ctx: &GearCtx) -> anyhow::Result<()> {
         let cfg = ctx.config::<{{ project-name | pascal_case }}Config>()?;
 
         // ── Fail-fast validation ──────────────────────────────────────────────
@@ -244,13 +245,13 @@ impl modkit::Module for {{ project-name | pascal_case }} {
 }
 
 /// `ApiGatewayCapability` (`rest_host`) — assembles the router across the two
-/// `ModKit` REST phases without starting the server.
-impl modkit::contracts::ApiGatewayCapability for {{ project-name | pascal_case }} {
-    /// Phase 1: register built-in endpoints on the empty router that will be
+/// Toolkit REST phases without starting the server.
+impl ApiGatewayCapability for {{ project-name | pascal_case }} {
+    /// Toolkit phase 1: register built-in endpoints on the empty router that will be
     /// passed to every `rest`-capable module in turn.
     fn rest_prepare(
         &self,
-        _ctx: &modkit::context::ModuleCtx,
+        _ctx: &GearCtx,
         router: Router,
     ) -> anyhow::Result<Router> {
         let router = router
@@ -260,11 +261,11 @@ impl modkit::contracts::ApiGatewayCapability for {{ project-name | pascal_case }
         Ok(router)
     }
 
-    /// Phase 2: apply the middleware stack to the fully-populated router and
+    /// Toolkit phase 2: apply the middleware stack to the fully-populated router and
     /// stash it so `serve` can pick it up.
     fn rest_finalize(
         &self,
-        _ctx: &modkit::context::ModuleCtx,
+        _ctx: &GearCtx,
         router: Router,
     ) -> anyhow::Result<Router> {
         let router = self.apply_middleware_stack(router)?;
@@ -275,7 +276,7 @@ impl modkit::contracts::ApiGatewayCapability for {{ project-name | pascal_case }
 
     /// Exposes the `OpenAPI` registry so that `rest`-capable peer modules can
     /// register their operation specs with this gateway.
-    fn as_registry(&self) -> &dyn modkit::OpenApiRegistry {
+    fn as_registry(&self) -> &dyn OpenApiRegistry {
         &*self.openapi_registry
     }
 }

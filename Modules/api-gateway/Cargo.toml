@@ -8,8 +8,8 @@ description = "API gateway module with health endpoints and standard middleware"
 name = "{{ crate_name }}"
 
 [dependencies]
-# ModKit module system — the backbone for module lifecycle and capability wiring
-cf-modkit = { version = "0.6.10" }
+# cf-gears-toolkit — the backbone for module lifecycle and capability wiring
+cf-gears-toolkit = { version = "0.6.10" }
 
 # HTTP framework
 axum = "0.8"
@@ -20,7 +20,7 @@ tower-http = { version = "0.6", features = [
 ] }
 
 # Async runtime
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.52.3", features = ["full"] }
 tokio-util = { version = "0.7", features = ["rt"] }
 
 # Error handling

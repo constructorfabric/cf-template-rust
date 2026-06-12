@@ -1,8 +1,8 @@
 use {{ crate_name }}_sdk::PokemonError;
-use modkit_db::DbError;
-use modkit_db::secure::InfraError;
-use modkit_db::secure::ScopeError;
-use modkit_macros::domain_model;
+use toolkit_db::DbError;
+use toolkit_db::secure::InfraError;
+use toolkit_db::secure::ScopeError;
+use toolkit_macros::domain_model;
 use thiserror::Error;
 use uuid::Uuid;
 

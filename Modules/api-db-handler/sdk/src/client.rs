@@ -4,9 +4,9 @@
 
 #[cfg(feature = "odata")]
 use futures_core::Stream;
-use modkit::async_trait;
+use toolkit::async_trait;
 #[cfg(feature = "odata")]
-use modkit_sdk::odata::QueryBuilder;
+use toolkit_sdk::odata::QueryBuilder;
 #[cfg(feature = "odata")]
 use std::pin::Pin;
 use uuid::Uuid;
@@ -33,8 +33,8 @@ pub trait PokemonClientV1: Send + Sync {
     /// List pokemon with cursor-based pagination.
     async fn list_pokemon(
         &self,
-        query: modkit_odata::ODataQuery,
-    ) -> Result<modkit_odata::Page<Pokemon>, PokemonError>;
+        query: toolkit_odata::ODataQuery,
+    ) -> Result<toolkit_odata::Page<Pokemon>, PokemonError>;
 }
 
 /// Streaming interface for pokemon (Version 1).

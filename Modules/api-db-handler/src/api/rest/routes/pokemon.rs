@@ -3,8 +3,8 @@
 use super::{dto, handlers};
 use {{ crate_name }}_sdk::odata::PokemonFilterField;
 use axum::Router;
-use modkit::api::OpenApiRegistry;
-use modkit::api::operation_builder::{OperationBuilder, OperationBuilderODataExt};
+use toolkit::api::OpenApiRegistry;
+use toolkit::api::operation_builder::{OperationBuilder, OperationBuilderODataExt};
 
 pub(super) fn register_pokemon_routes(mut router: Router, openapi: &dyn OpenApiRegistry) -> Router {
     // GET /pokemon/v1/pokemon - List pokemon with cursor-based pagination
@@ -22,7 +22,7 @@ pub(super) fn register_pokemon_routes(mut router: Router, openapi: &dyn OpenApiR
         )
         .query_param("cursor", false, "Cursor for pagination")
         .handler(handlers::list_pokemon)
-        .json_response_with_schema::<modkit_odata::Page<dto::PokemonDto>>(
+        .json_response_with_schema::<toolkit_odata::Page<dto::PokemonDto>>(
             openapi,
             http::StatusCode::OK,
             "Paginated list of pokemon",

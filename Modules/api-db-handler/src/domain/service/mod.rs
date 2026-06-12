@@ -2,17 +2,17 @@
 
 use std::sync::Arc;
 
-use modkit_macros::domain_model;
+use toolkit_macros::domain_model;
 
 use crate::domain::repos::PokemonRepository;
-use modkit_db::DBProvider;
-use modkit_db::odata::LimitCfg;
+use toolkit_db::DBProvider;
+use toolkit_db::odata::LimitCfg;
 
 mod pokemon;
 
 pub(crate) use pokemon::PokemonService;
 
-pub(crate) type DbProvider = DBProvider<modkit_db::DbError>;
+pub(crate) type DbProvider = DBProvider<toolkit_db::DbError>;
 
 /// Configuration for the domain service
 #[domain_model]

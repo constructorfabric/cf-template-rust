@@ -1,6 +1,6 @@
 use crate::domain::error::DomainError;
 use {{ crate_name }}_sdk::Pokemon;
-use modkit::async_trait;
+use toolkit::async_trait;
 
 /// Repository port for fetching Pokemon data.
 ///

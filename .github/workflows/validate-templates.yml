@@ -32,9 +32,9 @@ jobs:
           - template_name: background-worker
             template_dir: Modules/background-worker
             target_suffix: modules-background-worker
-          - template_name: rest-gateway
-            template_dir: Modules/rest-gateway
-            target_suffix: modules-rest-gateway
+          - template_name: api-gateway
+            template_dir: Modules/api-gateway
+            target_suffix: modules-api-gateway
     permissions:
       contents: read
     env:

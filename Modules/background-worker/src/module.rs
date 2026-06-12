@@ -1,5 +1,5 @@
 use anyhow::Context;
-use modkit::{Module, ModuleCtx, RunnableCapability, async_trait};
+use toolkit::{Gear, GearCtx, RunnableCapability, async_trait};
 use std::sync::{Arc, OnceLock};
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
@@ -11,7 +11,7 @@ use crate::domain::local_client::PokemonLocalClient;
 use crate::domain::service::PokemonService;
 use crate::infra::PokemonHttpRepository;
 
-#[modkit::module(name = "{{ project-name }}", capabilities = [stateful])]
+#[toolkit::gear(name = "{{ project-name }}", capabilities = [stateful])]
 #[derive(Default)]
 pub struct {{ crate_name | pascal_case }}Module {
     config: OnceLock<Config>,
@@ -20,8 +20,8 @@ pub struct {{ crate_name | pascal_case }}Module {
 }
 
 #[async_trait]
-impl Module for {{ crate_name | pascal_case }}Module {
-    async fn init(&self, ctx: &ModuleCtx) -> modkit::Result<()> {
+impl Gear for {{ crate_name | pascal_case }}Module {
+    async fn init(&self, ctx: &GearCtx) -> toolkit::Result<()> {
         tracing::info!("Initializing {{ project-name }} module");
         self.config
             .set(ctx.config::<Config>()?)
@@ -46,7 +46,7 @@ impl Module for {{ crate_name | pascal_case }}Module {
 
 #[async_trait]
 impl RunnableCapability for {{ crate_name | pascal_case }}Module {
-    async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> modkit::Result<()> {
+    async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         tracing::info!("Starting {{ project-name }} background fetcher");
 
         let service = self
@@ -91,7 +91,7 @@ impl RunnableCapability for {{ crate_name | pascal_case }}Module {
         Ok(())
     }
 
-    async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> modkit::Result<()> {
+    async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         tracing::info!("Stopping {{ project-name }} module");
 
         if let Some(handle) = self.task_handle.lock().await.take() {

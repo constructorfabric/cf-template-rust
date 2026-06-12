@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use {{ crate_name }}_sdk::{Pokemon, PokemonClientV1, PokemonError};
-use modkit::async_trait;
+use toolkit::async_trait;
 
 use crate::domain::service::PokemonService;
 

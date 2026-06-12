@@ -6,9 +6,9 @@ edition = "2024"
 [features]
 default = ["odata"]
 odata = ["{{ project-name }}-sdk/odata"] # enable streaming API with typed queries
-sqlite = ["cf-modkit-db/sqlite"]
-postgres = ["cf-modkit-db/pg"]
-mysql = ["cf-modkit-db/mysql"]
+sqlite = ["cf-gears-toolkit-db/sqlite"]
+postgres = ["cf-gears-toolkit-db/pg"]
+mysql = ["cf-gears-toolkit-db/mysql"]
 
 [dependencies]
 # Core
@@ -50,11 +50,12 @@ sea-orm-migration = { version = "1.1", default-features = false }
 # Error handling
 thiserror = "2.0"
 
-# ModKit
-cf-modkit = { version = "=0.6.10", features = ["db"] }
-cf-modkit-db = { version = "=0.8.2" }
-cf-modkit-db-macros = { version = "=0.6.2" }
-cf-modkit-security = { version = "=0.7.0" }
-cf-modkit-odata = { version = "=0.8.0", features = ["with-utoipa"] }
-cf-modkit-sdk = { version = "=0.6.5" }
-cf-modkit-macros = { version = "=0.6.2" }
+# ToolKit
+cf-gears-toolkit = { version = "=0.6.10", features = ["db"] }
+cf-gears-toolkit-canonical-errors = { version = "=0.7.3" }
+cf-gears-toolkit-db = { version = "=0.8.2" }
+cf-gears-toolkit-db-macros = { version = "=0.6.2" }
+cf-gears-toolkit-security = { version = "=0.7.0" }
+cf-gears-toolkit-odata = { version = "=0.8.0", features = ["with-utoipa"] }
+cf-gears-toolkit-sdk = { version = "=0.6.5" }
+cf-gears-toolkit-macros = { version = "=0.6.2" }

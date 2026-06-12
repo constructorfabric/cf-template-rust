@@ -1,9 +1,9 @@
 use std::sync::{Arc, OnceLock};
 
-use modkit::api::OpenApiRegistry;
-use modkit::{DatabaseCapability, Module, ModuleCtx, RestApiCapability, async_trait};
-use modkit_db::DBProvider;
-use modkit_db::DbError;
+use toolkit::api::OpenApiRegistry;
+use toolkit::{DatabaseCapability, Gear, GearCtx, RestApiCapability, async_trait};
+use toolkit_db::DBProvider;
+use toolkit_db::DbError;
 use sea_orm_migration::MigrationTrait;
 use tracing::{debug, info};
 
@@ -19,7 +19,7 @@ use crate::infra::storage::OrmPokemonRepository;
 pub(crate) type ConcreteAppServices = AppServices<OrmPokemonRepository>;
 
 /// Pokemon module with DDD-light layout and proper `ClientHub` integration
-#[modkit::module(
+#[toolkit::gear(
     name = "{{ project-name }}",
     capabilities = [db, rest]
 )]
@@ -36,8 +36,8 @@ impl Default for PokemonModule {
 }
 
 #[async_trait]
-impl Module for PokemonModule {
-    async fn init(&self, ctx: &ModuleCtx) -> anyhow::Result<()> {
+impl Gear for PokemonModule {
+    async fn init(&self, ctx: &GearCtx) -> anyhow::Result<()> {
         let cfg: PokemonConfig = ctx.config()?;
         debug!(
             "Loaded pokemon config: default_page_size={}, max_page_size={}",
@@ -80,7 +80,7 @@ impl DatabaseCapability for PokemonModule {
 impl RestApiCapability for PokemonModule {
     fn register_rest(
         &self,
-        _ctx: &ModuleCtx,
+        _ctx: &GearCtx,
         router: axum::Router,
         openapi: &dyn OpenApiRegistry,
     ) -> anyhow::Result<axum::Router> {

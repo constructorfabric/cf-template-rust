@@ -4,9 +4,9 @@ use std::sync::Arc;
 use {{ crate_name }}_sdk::odata::PokemonSchema;
 use {{ crate_name }}_sdk::{Pokemon, PokemonError, PokemonStreamingClientV1};
 use futures_util::{Stream, StreamExt};
-use modkit_macros::domain_model;
-use modkit_sdk::odata::{QueryBuilder, items_stream_boxed};
-use modkit_sdk::pager::PagerError;
+use toolkit_macros::domain_model;
+use toolkit_sdk::odata::{QueryBuilder, items_stream_boxed};
+use toolkit_sdk::pager::PagerError;
 
 use crate::module::ConcreteAppServices;
 

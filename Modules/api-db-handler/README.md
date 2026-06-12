@@ -19,7 +19,7 @@ Pokemon management module with REST API, database storage, and inter-module comm
     ├── lib.rs                        # Crate root and public re-exports
     ├── config.rs                     # PokemonConfig (page sizes)
     ├── errors.rs                     # API error definitions
-    ├── module.rs                     # PokemonModule — ModKit registration point
+    ├── module.rs                     # PokemonModule — ToolKit registration point
     │
     ├── api/
     │   └── rest/

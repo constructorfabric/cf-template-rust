@@ -1,9 +1,9 @@
 use std::sync::Arc;
 
 use {{ crate_name }}_sdk::Pokemon;
-use modkit_macros::domain_model;
-use modkit_odata::{ODataQuery, Page};
-use modkit_security::AccessScope;
+use toolkit_macros::domain_model;
+use toolkit_odata::{ODataQuery, Page};
+use toolkit_security::AccessScope;
 use tracing::instrument;
 use uuid::Uuid;
 

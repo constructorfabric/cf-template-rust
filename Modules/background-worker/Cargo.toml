@@ -8,12 +8,12 @@ edition = "2024"
 anyhow = { version = "1.0" }
 thiserror = { version = "2.0" }
 
-cf-modkit = { version = "0.6.10" }
+cf-gears-toolkit = { version = "0.6.10" }
 cf-modkit-http = { version = "0.6.5" }
 
 tracing = { version = "0.1" }
 
-tokio = { version = "1.51" }
+tokio = { version = "1.52.3", features = ["full"] }
 tokio-util = { version = "0.7.18" }
 
 # Serialization

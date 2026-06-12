@@ -1,6 +1,6 @@
 //! Infrastructure layer mapping from type-safe `FilterNode` to SeaORM Conditions.
 //! Only compiled when the `odata` feature is enabled.
-use modkit_db::odata::sea_orm_filter::{FieldToColumn, ODataFieldMapping};
+use toolkit_db::odata::sea_orm_filter::{FieldToColumn, ODataFieldMapping};
 
 use crate::infra::storage::entity::{Column, Entity, Model};
 use {{ crate_name }}_sdk::odata::PokemonFilterField;

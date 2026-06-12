@@ -4,7 +4,7 @@ use uuid::Uuid;
 
 /// REST DTO for pokemon representation with serde/utoipa
 #[derive(Debug, Clone)]
-#[modkit_macros::api_dto(request, response)]
+#[toolkit_macros::api_dto(request, response)]
 pub struct PokemonDto {
     pub id: Uuid,
     pub tenant_id: Uuid,

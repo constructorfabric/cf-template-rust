@@ -1,17 +1,17 @@
 use crate::config::{Config, default_interval};
-use modkit::{Module, ModuleCtx, RunnableCapability, async_trait};
+use toolkit::{Gear, GearCtx, RunnableCapability, async_trait};
 use std::sync::OnceLock;
 
 #[derive(Default)]
-#[modkit::module(name = "hello-world", capabilities = [stateful])]
-pub struct HelloWorldModule {
+#[toolkit::gear(name = "hello-world", capabilities = [stateful])]
+pub struct HelloWorldGear {
     config: OnceLock<Config>,
 }
 
 #[async_trait]
-impl Module for HelloWorldModule {
-    async fn init(&self, ctx: &ModuleCtx) -> modkit::Result<()> {
-        tracing::info!("Init hello world module");
+impl Gear for HelloWorldGear {
+    async fn init(&self, ctx: &GearCtx) -> toolkit::Result<()> {
+        tracing::info!("Init hello world gear");
         self.config
             .set(ctx.config::<Config>()?)
             .map_err(|_| anyhow::anyhow!("config already initialized"))?;
@@ -20,8 +20,8 @@ impl Module for HelloWorldModule {
 }
 
 #[async_trait]
-impl RunnableCapability for HelloWorldModule {
-    async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> modkit::Result<()> {
+impl RunnableCapability for HelloWorldGear {
+    async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         let interval_secs = self
             .config
             .get()
@@ -43,7 +43,7 @@ impl RunnableCapability for HelloWorldModule {
         Ok(())
     }
 
-    async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> modkit::Result<()> {
+    async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         tracing::info!("Goodbye World");
         Ok(())
     }

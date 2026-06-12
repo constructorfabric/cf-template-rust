@@ -1,8 +1,11 @@
 //! Thiserror-backed API error definitions for pokemon.
 
 use http::StatusCode;
-use modkit::api::problem::Problem;
+use toolkit::api::canonical_prelude::{CanonicalError, Problem, resource_error};
 use thiserror::Error;
+
+#[resource_error("gts.hx.example2.pokemon.api.v1~")]
+pub struct PokemonApiError;
 
 /// Strongly-typed API error codes for RFC 9457 responses.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Error)]
@@ -80,10 +83,23 @@ impl ErrorCode {
         self.code()
     }
 
+    pub fn as_canonical(self, detail: impl Into<String>) -> CanonicalError {
+        let detail = detail.into();
+
+        match self {
+            Self::PokemonNotFound => PokemonApiError::not_found(detail.clone())
+                .with_resource(detail)
+                .create(),
+            Self::PokemonValidation => PokemonApiError::invalid_argument()
+                .with_field_violation("pokemon", detail, "VALIDATION_FAILED")
+                .create(),
+            Self::PokemonInternalDatabase => CanonicalError::internal(detail).create(),
+            Self::InternalServerError => CanonicalError::internal(detail).create(),
+        }
+    }
+
     pub fn as_problem(self, detail: impl Into<String>) -> Problem {
-        Problem::new(self.status(), self.title(), detail.into())
-            .with_code(self.code())
-            .with_type(self.type_url())
+        Problem::from(self.as_canonical(detail))
     }
 
     pub fn with_context(

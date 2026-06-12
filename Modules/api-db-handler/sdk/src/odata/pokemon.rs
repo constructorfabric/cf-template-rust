@@ -1,11 +1,11 @@
 //! OData filter field definitions for Pokemon resources.
 
-use modkit_odata_macros::ODataFilterable;
-use modkit_sdk::odata::{FieldRef, Schema};
+use toolkit_odata_macros::ODataFilterable;
+use toolkit_sdk::odata::{FieldRef, Schema};
 use time::OffsetDateTime;
 use uuid::Uuid;
 
-use modkit_odata::filter::FilterField as _;
+use toolkit_odata::filter::FilterField as _;
 
 /// Pokemon filterable fields schema.
 #[derive(ODataFilterable)]
