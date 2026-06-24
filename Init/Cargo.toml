@@ -3,7 +3,7 @@ version = "0.0.1"
 edition = "2024"
 
 [workspace]
-members = ["modules/hello-world"]
+members = ["gears/hello-world"]
 resolver = "3"
 
 [workspace.lints.rust]
@@ -15,7 +15,7 @@ nursery = "deny"
 
 [workspace.dependencies]
 anyhow = { version = "1.0" }
-cf-gears-toolkit = { version = "0.6.10" }
+cf-gears-toolkit = { version = "0.6.12" }
 
 tokio = { version = "1.52.3", features = ["full"] }
 tokio-util = "0.7.18"
