@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-/// Internal domain errors for the `{{ project-name }}` module.
+/// Internal domain errors for the `{{ project-name }}` gear.
 ///
 /// These are not exposed to external consumers — `PublicApiItemLocalClient` maps
 /// these to the public `PublicApiItemError` at the SDK boundary.

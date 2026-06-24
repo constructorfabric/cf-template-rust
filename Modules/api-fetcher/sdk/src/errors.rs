@@ -1,6 +1,6 @@
-//! Public error types for the `{{ project-name }}` module.
+//! Public error types for the `{{ project-name }}` gear.
 //!
-//! These errors are safe to expose to other modules and consumers.
+//! These errors are safe to expose to other gears and consumers.
 
 use thiserror::Error;
 

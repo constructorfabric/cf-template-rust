@@ -18,11 +18,11 @@ pub(crate) type ConcreteUserService = UserService<InMemoryUserRepository>;
     name = "{{ project-name }}",
     capabilities = [rest]
 )]
-pub struct UserRestApiModule {
+pub struct UserRestApiGear {
     service: OnceLock<Arc<ConcreteUserService>>,
 }
 
-impl Default for UserRestApiModule {
+impl Default for UserRestApiGear {
     fn default() -> Self {
         Self {
             service: OnceLock::new(),
@@ -31,7 +31,7 @@ impl Default for UserRestApiModule {
 }
 
 #[async_trait]
-impl Gear for UserRestApiModule {
+impl Gear for UserRestApiGear {
     async fn init(&self, ctx: &GearCtx) -> anyhow::Result<()> {
         let _cfg: UserRestApiConfig = ctx.config()?;
         let service = Arc::new(UserService::new(Arc::new(InMemoryUserRepository::new())));
@@ -39,7 +39,7 @@ impl Gear for UserRestApiModule {
 
         self.service
             .set(service)
-            .map_err(|_| anyhow::anyhow!("{} module already initialized", Self::MODULE_NAME))?;
+            .map_err(|_| anyhow::anyhow!("{} gear already initialized", Self::MODULE_NAME))?;
 
         ctx.client_hub()
             .register::<dyn UserClientV1>(Arc::new(local_client));
@@ -49,7 +49,7 @@ impl Gear for UserRestApiModule {
     }
 }
 
-impl RestApiCapability for UserRestApiModule {
+impl RestApiCapability for UserRestApiGear {
     fn register_rest(
         &self,
         _ctx: &GearCtx,

@@ -1,9 +1,9 @@
 # {{ project-name }}
 
 Periodically fetches a random public API item from [JSONPlaceholder](https://jsonplaceholder.typicode.com/) and exposes the
-fetch capability to other modules via `ClientHub`.
+fetch capability to other gears via `ClientHub`.
 
-## Module structure
+## Gear structure
 
 ```
 {{ project-name }}/
@@ -21,17 +21,17 @@ fetch capability to other modules via `ClientHub`.
     ├── infra/
     │   ├── mod.rs              # PublicApiItemHttpRepository (HTTP impl of PublicApiItemRepository)
     │   └── model.rs            # PublicApiItemResponse (raw API shape)
-    └── gear.rs               # {{ crate_name | pascal_case }}Module (toolkit wiring)
+    └── gear.rs                 # {{ crate_name | pascal_case }}Gear (toolkit wiring)
 ```
 
 ### Layer responsibilities
 
 | Layer      | What it does                                                                                                                                                                          |
 |------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **sdk**    | Defines the public contract (`PublicApiItemClientV1` trait, `PublicApiItem` model, `PublicApiItemError`). Other modules depend only on this crate.                                                      |
+| **sdk**    | Defines the public contract (`PublicApiItemClientV1` trait, `PublicApiItem` model, `PublicApiItemError`). Other gears depend only on this crate.                                                        |
 | **domain** | Pure business logic. `PublicApiItemService` drives the use-case through the `PublicApiItemRepository` port. Errors stay internal (`DomainError`).                                                 |
 | **infra**  | `PublicApiItemHttpRepository` implements `PublicApiItemRepository` by calling the JSONPlaceholder over HTTP. Maps the raw `PublicApiItemResponse` to the SDK `PublicApiItem` type.                                    |
-| **module** | Wires everything together. `init()` constructs the object graph and registers `PublicApiItemLocalClient` into `ClientHub`. `start()` runs the background polling loop via `PublicApiItemService`. |
+| **gear**   | Wires everything together. `init()` constructs the object graph and registers `PublicApiItemLocalClient` into `ClientHub`. `start()` runs the background polling loop via `PublicApiItemService`. |
 
 ### Data flow
 
@@ -47,13 +47,13 @@ ClientHub consumer
 
 ## Background polling
 
-In addition to on-demand access via `ClientHub`, the module spawns a background task (every 5 s)
+In addition to on-demand access via `ClientHub`, the gear spawns a background task (every 5 s)
 that calls `PublicApiItemService::fetch_random_public_api_item()` and logs the result. The loop is cancelled
 gracefully via a `CancellationToken` when the application shuts down.
 
 ## Dependencies
 
-- `cf-gears-toolkit` — module framework (`Gear`, `RunnableCapability`, `GearCtx`, `ClientHub`)
+- `cf-gears-toolkit` — gear framework (`Gear`, `RunnableCapability`, `GearCtx`, `ClientHub`)
 - `cf-gears-toolkit-http` — `HttpClient` wrapper
 - `{{ project-name }}-sdk` — public SDK (path dependency)
 - `anyhow` — error handling in toolkit boundaries

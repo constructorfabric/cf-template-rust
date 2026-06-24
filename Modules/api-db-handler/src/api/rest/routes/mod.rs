@@ -10,7 +10,7 @@ use std::sync::Arc;
 #[cfg(feature = "odata")]
 mod pokemon;
 
-/// Register all routes for the pokemon module
+/// Register all routes for the pokemon gear
 pub(crate) fn register_routes(
     mut router: Router,
     openapi: &dyn OpenApiRegistry,

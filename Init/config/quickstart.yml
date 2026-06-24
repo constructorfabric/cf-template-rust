@@ -14,7 +14,7 @@ opentelemetry:
     enabled: false
   metrics:
     enabled: false
-modules:
+gears:
   hello-world:
     config:
       interval: 1

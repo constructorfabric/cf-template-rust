@@ -1,4 +1,4 @@
-//! Public models for the product module.
+//! Public models for the product gear.
 
 use time::OffsetDateTime;
 use uuid::Uuid;

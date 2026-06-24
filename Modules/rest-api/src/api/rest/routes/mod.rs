@@ -3,7 +3,7 @@ use std::sync::Arc;
 use axum::Router;
 use toolkit::api::OpenApiRegistry;
 
-use crate::module::ConcreteUserService;
+use crate::gear::ConcreteUserService;
 
 mod users;
 

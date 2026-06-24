@@ -11,7 +11,7 @@ use super::{
     ApiResult, CreateProductReq, Json, JsonBody, JsonPage, ProductDto, UpdateProductReq,
     apply_select, created_json, no_content, page_to_projected_json,
 };
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 
 /// List product with cursor-based pagination and optional field projection via $select
 #[tracing::instrument(

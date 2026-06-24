@@ -1,11 +1,11 @@
-//! `{{ project-name | pascal_case }}` module definition.
+//! `{{ project-name | pascal_case }}` gear definition.
 //!
 //! This is the aggregate root of the API gateway bounded context.  It owns:
 //!
 //! * **Configuration** (`{{ project-name | pascal_case }}Config`) — loaded once during `init`.
 //! * **Router** — assembled in `rest_prepare` / `rest_finalize`, served in `serve`.
 //! * **`OpenAPI` registry** — a pass-through registry so that other `rest`-capable
-//!   modules can register their operations with this gateway.
+//!   gears can register their operations with this gateway.
 //!
 //! # Middleware stack (outermost → innermost / first to last in the request path)
 //!
@@ -49,11 +49,11 @@ use crate::config::{{ project-name | pascal_case }}Config;
 use crate::middleware;
 use crate::web;
 
-/// API gateway module — owns the HTTP server and the shared `axum::Router`.
+/// API gateway gear — owns the HTTP server and the shared `axum::Router`.
 ///
-/// Declare this module in your application with:
+/// Declare this gear in your application with:
 /// ```yaml
-/// modules:
+/// gears:
 ///   {{ project-name }}:
 ///     config:
 ///       bind_addr: "0.0.0.0:8080"
@@ -68,7 +68,7 @@ pub struct {{ project-name | pascal_case }} {
     /// Effective configuration; set exactly once during `init`.
     config: OnceLock<{{ project-name | pascal_case }}Config>,
 
-    /// Shared `OpenAPI` registry delegated to other `rest`-capable modules.
+    /// Shared `OpenAPI` registry delegated to other `rest`-capable gears.
     openapi_registry: Arc<OpenApiRegistryImpl>,
 
     /// Final assembled router stored by `rest_finalize` and consumed by `serve`.
@@ -113,7 +113,7 @@ impl {{ project-name | pascal_case }} {
 
     /// Wraps `router` with the standard middleware stack.
     ///
-    /// Layers are added innermost-first (`layer()` semantics); see the module
+    /// Layers are added innermost-first (`layer()` semantics); see the gear
     /// doc-comment for the resulting execution order.
     fn apply_middleware_stack(&self, mut router: Router) -> anyhow::Result<Router> {
         let timeout = Duration::from_secs(self.cfg()?.timeout_secs);
@@ -248,7 +248,7 @@ impl Gear for {{ project-name | pascal_case }} {
 /// Toolkit REST phases without starting the server.
 impl ApiGatewayCapability for {{ project-name | pascal_case }} {
     /// Toolkit phase 1: register built-in endpoints on the empty router that will be
-    /// passed to every `rest`-capable module in turn.
+    /// passed to every `rest`-capable gear in turn.
     fn rest_prepare(
         &self,
         _ctx: &GearCtx,
@@ -274,7 +274,7 @@ impl ApiGatewayCapability for {{ project-name | pascal_case }} {
         Ok(router)
     }
 
-    /// Exposes the `OpenAPI` registry so that `rest`-capable peer modules can
+    /// Exposes the `OpenAPI` registry so that `rest`-capable peer gears can
     /// register their operation specs with this gateway.
     fn as_registry(&self) -> &dyn OpenApiRegistry {
         &*self.openapi_registry

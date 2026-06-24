@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-/// Configuration for the product module
+/// Configuration for the product gear
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct ProductConfig {

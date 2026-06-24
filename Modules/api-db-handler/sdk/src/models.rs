@@ -1,4 +1,4 @@
-//! Public models for the pokemon module.
+//! Public models for the pokemon gear.
 
 use time::OffsetDateTime;
 use uuid::Uuid;

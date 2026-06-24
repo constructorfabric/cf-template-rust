@@ -18,16 +18,16 @@ use crate::infra::storage::OrmProductRepository;
 /// Type alias for the concrete `AppServices` type used with ORM repositories.
 pub(crate) type ConcreteAppServices = AppServices<OrmProductRepository>;
 
-/// Product module with DDD-light layout and proper `ClientHub` integration
+/// Product gear with DDD-light layout and proper `ClientHub` integration
 #[toolkit::gear(
     name = "{{ project-name }}",
     capabilities = [db, rest]
 )]
-pub struct ProductModule {
+pub struct ProductGear {
     service: OnceLock<Arc<ConcreteAppServices>>,
 }
 
-impl Default for ProductModule {
+impl Default for ProductGear {
     fn default() -> Self {
         Self {
             service: OnceLock::new(),
@@ -36,7 +36,7 @@ impl Default for ProductModule {
 }
 
 #[async_trait]
-impl Gear for ProductModule {
+impl Gear for ProductGear {
     async fn init(&self, ctx: &GearCtx) -> anyhow::Result<()> {
         let cfg: ProductConfig = ctx.config()?;
         debug!(
@@ -58,7 +58,7 @@ impl Gear for ProductModule {
 
         self.service
             .set(services.clone())
-            .map_err(|_| anyhow::anyhow!("{} module already initialized", Self::MODULE_NAME))?;
+            .map_err(|_| anyhow::anyhow!("{} gear already initialized", Self::MODULE_NAME))?;
 
         let local = ProductLocalClient::new(services);
 
@@ -69,7 +69,7 @@ impl Gear for ProductModule {
     }
 }
 
-impl DatabaseCapability for ProductModule {
+impl DatabaseCapability for ProductGear {
     fn migrations(&self) -> Vec<Box<dyn MigrationTrait>> {
         use sea_orm_migration::MigratorTrait;
         info!("Providing product database migrations");
@@ -77,7 +77,7 @@ impl DatabaseCapability for ProductModule {
     }
 }
 
-impl RestApiCapability for ProductModule {
+impl RestApiCapability for ProductGear {
     fn register_rest(
         &self,
         _ctx: &GearCtx,

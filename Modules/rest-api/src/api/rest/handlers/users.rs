@@ -10,7 +10,7 @@ use super::{
     ApiResult, CreateUserReq, Json, JsonBody, UpdateUserReq, UserDto, UserListResponse,
     created_json, no_content,
 };
-use crate::module::ConcreteUserService;
+use crate::gear::ConcreteUserService;
 
 pub async fn list_users(
     Extension(service): Extension<std::sync::Arc<ConcreteUserService>>,

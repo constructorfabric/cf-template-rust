@@ -13,7 +13,7 @@ use {{ crate_name }}_sdk::{
 
 #[cfg(feature = "odata")]
 use crate::domain::local_client::streaming::LocalProductStreamingClient;
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 
 /// Local implementation of the object-safe `ProductClientV1`.
 #[domain_model]

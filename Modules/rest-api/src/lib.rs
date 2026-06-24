@@ -1,7 +1,7 @@
 #![doc = include_str!("../README.md")]
 
-pub mod module;
-pub use module::UserRestApiModule;
+pub mod gear;
+pub use gear::UserRestApiGear;
 
 pub(crate) mod api;
 pub(crate) mod config;

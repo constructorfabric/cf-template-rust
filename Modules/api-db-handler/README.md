@@ -1,8 +1,8 @@
 # {{ project-name }}
 
-Pokemon management module with REST API, database storage, and inter-module communication via `ClientHub`.
+Pokemon management gear with REST API, database storage, and inter-gear communication via `ClientHub`.
 
-## Module Structure
+## Gear Structure
 
 ```
 {{ project-name }}/
@@ -57,7 +57,7 @@ Pokemon management module with REST API, database storage, and inter-module comm
 
 | Layer              | Package path                                | Rule                                                                     |
 |--------------------|---------------------------------------------|--------------------------------------------------------------------------|
-| **SDK**            | `{{ project-name }}-sdk` (`{{ crate_name }}_sdk`) | Public contract. No server code, no DB. Safe to expose to other modules. |
+| **SDK**            | `{{ project-name }}-sdk` (`{{ crate_name }}_sdk`) | Public contract. No server code, no DB. Safe to expose to other gears. |
 | **API**            | `crate::api`                                | HTTP concerns only. Translates HTTP ↔ domain. No business logic.         |
 | **Domain**         | `crate::domain`                             | Business logic and rules. Must not import `api::*` or `infra::*`.        |
 | **Infrastructure** | `crate::infra`                              | Database persistence. Implements domain repository traits.               |
@@ -146,15 +146,15 @@ handlers::list_pokemon  (back in handler)
 JSON Response  (axum::Json<serde_json::Value>)
 ```
 
-### Inter-module communication (ClientHub)
+### Inter-gear communication (ClientHub)
 
-Other modules can consume this module without HTTP by obtaining the client from `ClientHub`:
+Other gears can consume this gear without HTTP by obtaining the client from `ClientHub`:
 
 ```
 gear.rs: PokemonGear::init()
     └── registers Arc<PokemonLocalClient> as dyn PokemonClientV1
 
-Consumer module:
+Consumer gear:
     let client = hub.get::<dyn PokemonClientV1>()?;
     let pokemon = client.get_pokemon(id).await?;
     // or stream all results:

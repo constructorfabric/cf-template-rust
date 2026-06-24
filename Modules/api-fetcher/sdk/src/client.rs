@@ -1,7 +1,7 @@
-//! Object-safe client boundary for the `{{ project-name }}` module.
+//! Object-safe client boundary for the `{{ project-name }}` gear.
 //!
 //! This API is designed for `ClientHub` registration as `Arc<dyn PublicApiItemClientV1>`.
-//! Other modules obtain the client from `ClientHub`:
+//! Other gears obtain the client from `ClientHub`:
 //!
 //! ```ignore
 //! use {{ crate_name }}_sdk::PublicApiItemClientV1;
@@ -15,7 +15,7 @@ use async_trait::async_trait;
 use crate::errors::PublicApiItemError;
 use crate::models::PublicApiItem;
 
-/// Object-safe client for inter-module consumption via `ClientHub` (Version 1).
+/// Object-safe client for inter-gear consumption via `ClientHub` (Version 1).
 ///
 /// Registered by `{{ project-name }}` during init:
 /// ```ignore

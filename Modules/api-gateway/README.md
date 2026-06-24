@@ -1,6 +1,6 @@
 # {{ project-name }}
 
-API gateway module that owns the Axum router and serves health endpoints.
+API gateway gear that owns the Axum router and serves health endpoints.
 
 ## Overview
 
@@ -27,7 +27,7 @@ Router / handlers
 ## Configuration
 
 ```yaml
-modules:
+gears:
   {{ project-name }}:
     config:
       bind_addr: "0.0.0.0:8080"   # default: 127.0.0.1:8080

@@ -1,4 +1,4 @@
-//! Public error types for the product module.
+//! Public error types for the product gear.
 
 use thiserror::Error;
 use uuid::Uuid;

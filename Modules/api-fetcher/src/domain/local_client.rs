@@ -7,7 +7,7 @@ use crate::domain::service::PublicApiItemService;
 
 /// SDK boundary adapter: implements `PublicApiItemClientV1` by delegating to `PublicApiItemService`.
 ///
-/// Registered into `ClientHub` during module `init()` so other modules can call:
+/// Registered into `ClientHub` during gear `init()` so other gears can call:
 /// ```ignore
 /// let client = hub.get::<dyn PublicApiItemClientV1>()?;
 /// let public_api_item = client.fetch_random_public_api_item().await?;

@@ -4,48 +4,48 @@ use std::sync::{Arc, OnceLock};
 use tokio::sync::Mutex;
 use tokio::task::JoinHandle;
 
-use {{ crate_name }}_sdk::PublicApiItemClientV1;
+use {{ crate_name }}_sdk::PokemonClientV1;
 
 use crate::config::{Config, default_interval};
-use crate::domain::local_client::PublicApiItemLocalClient;
-use crate::domain::service::PublicApiItemService;
-use crate::infra::PublicApiItemHttpRepository;
+use crate::domain::local_client::PokemonLocalClient;
+use crate::domain::service::PokemonService;
+use crate::infra::PokemonHttpRepository;
 
 #[toolkit::gear(name = "{{ project-name }}", capabilities = [stateful])]
 #[derive(Default)]
-pub struct {{ crate_name | pascal_case }}Module {
+pub struct {{ crate_name | pascal_case }}Gear {
     config: OnceLock<Config>,
-    service: OnceLock<Arc<PublicApiItemService>>,
+    service: OnceLock<Arc<PokemonService>>,
     task_handle: Arc<Mutex<Option<JoinHandle<()>>>>,
 }
 
 #[async_trait]
-impl Gear for {{ crate_name | pascal_case }}Module {
+impl Gear for {{ crate_name | pascal_case }}Gear {
     async fn init(&self, ctx: &GearCtx) -> toolkit::Result<()> {
-        tracing::info!("Initializing {{ project-name }} module");
+        tracing::info!("Initializing {{ project-name }} gear");
         self.config
             .set(ctx.config::<Config>()?)
             .map_err(|_| anyhow::anyhow!("config already initialized"))?;
 
-        let repository = Arc::new(PublicApiItemHttpRepository::new()?);
-        let service = Arc::new(PublicApiItemService::new(repository));
-        let local_client = PublicApiItemLocalClient::new(Arc::clone(&service));
+        let repository = Arc::new(PokemonHttpRepository::new()?);
+        let service = Arc::new(PokemonService::new(repository));
+        let local_client = PokemonLocalClient::new(Arc::clone(&service));
 
         self.service
             .set(service)
             .map_err(|_| anyhow::anyhow!("service already initialized"))?;
 
         ctx.client_hub()
-            .register::<dyn PublicApiItemClientV1>(Arc::new(local_client));
+            .register::<dyn PokemonClientV1>(Arc::new(local_client));
 
-        tracing::info!("{{ project-name }} registered PublicApiItemClientV1 into ClientHub");
+        tracing::info!("{{ project-name }} registered PokemonClientV1 into ClientHub");
 
         Ok(())
     }
 }
 
 #[async_trait]
-impl RunnableCapability for {{ crate_name | pascal_case }}Module {
+impl RunnableCapability for {{ crate_name | pascal_case }}Gear {
     async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         tracing::info!("Starting {{ project-name }} background fetcher");
 
@@ -73,12 +73,12 @@ impl RunnableCapability for {{ crate_name | pascal_case }}Module {
                         break;
                     }
                     _ = interval.tick() => {
-                        match service.fetch_random_public_api_item().await {
-                            Ok(public_api_item) => {
-                                tracing::debug!("Fetched public_api_item: {public_api_item:?}");
+                        match service.fetch_random_pokemon().await {
+                            Ok(pokemon) => {
+                                tracing::debug!("Fetched pokemon: {pokemon:?}");
                             }
                             Err(e) => {
-                                tracing::error!("Failed to fetch public_api_item: {e}");
+                                tracing::error!("Failed to fetch pokemon: {e}");
                             }
                         }
                     }
@@ -92,7 +92,7 @@ impl RunnableCapability for {{ crate_name | pascal_case }}Module {
     }
 
     async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
-        tracing::info!("Stopping {{ project-name }} module");
+        tracing::info!("Stopping {{ project-name }} gear");
 
         if let Some(handle) = self.task_handle.lock().await.take() {
             if let Err(e) = handle.await {

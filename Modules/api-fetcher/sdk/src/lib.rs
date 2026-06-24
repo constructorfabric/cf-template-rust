@@ -1,7 +1,7 @@
 //! {{ project-name }} SDK
 //!
-//! This crate provides the public API for the `{{ project-name }}` module:
-//! - `PublicApiItemClientV1` trait — the inter-module client interface
+//! This crate provides the public API for the `{{ project-name }}` gear:
+//! - `PublicApiItemClientV1` trait — the inter-gear client interface
 //! - `PublicApiItem` — the public model type
 //! - `PublicApiItemError` — the public error type
 //!

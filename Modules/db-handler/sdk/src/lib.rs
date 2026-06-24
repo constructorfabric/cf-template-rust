@@ -1,6 +1,6 @@
 //! Product SDK
 //!
-//! Public API contract for the product module:
+//! Public API contract for the product gear:
 //! - `ProductClientV1` trait
 //! - `Product` model
 //! - `ProductError` error type

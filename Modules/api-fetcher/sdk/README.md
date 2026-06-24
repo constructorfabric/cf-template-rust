@@ -1,8 +1,8 @@
 # {{ project-name }}-sdk
 
-Public API crate for the `{{ project-name }}` module. Depend on this crate to fetch PublicApiItem data
-from any other module in your ConstructorFabric gears application — without taking a direct dependency on the
-module itself.
+Public API crate for the `{{ project-name }}` gear. Depend on this crate to fetch PublicApiItem data
+from any other gear in your ConstructorFabric gears application — without taking a direct dependency on the
+gear itself.
 
 ## Types
 
@@ -17,7 +17,7 @@ module itself.
 ### 1. Add the dependency
 
 ```toml
-# your-module/Cargo.toml
+# your-gear/Cargo.toml
 [dependencies]
 {{ project-name }}-sdk = { path = "../{{ project-name }}/sdk" }
 ```
@@ -36,7 +36,7 @@ async fn example(hub: &ClientHub) -> toolkit::Result<()> {
 ```
 
 `hub.get` returns an error if `{{ project-name }}` was not loaded (i.e. not registered during
-`init()`), so make sure the module is included in your application's module list.
+`init()`), so make sure the gear is included in your application's gear list.
 
 ### 3. Handle errors
 
@@ -57,5 +57,5 @@ match client.fetch_random_public_api_item().await {
 ctx.client_hub().register::<dyn PublicApiItemClientV1>(Arc::new(local_client));
 ```
 
-Your module's `init()` runs after all modules have been loaded, so the client is always available
-by the time any module's `start()` or request handlers execute.
+Your gear's `init()` runs after all gears have been loaded, so the client is always available
+by the time any gear's `start()` or request handlers execute.

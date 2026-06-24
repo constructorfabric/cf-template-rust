@@ -7,7 +7,7 @@ use crate::domain::service::PokemonService;
 
 /// SDK boundary adapter: implements `PokemonClientV1` by delegating to `PokemonService`.
 ///
-/// Registered into `ClientHub` during module `init()` so other modules can call:
+/// Registered into `ClientHub` during gear `init()` so other gears can call:
 /// ```ignore
 /// let client = hub.get::<dyn PokemonClientV1>()?;
 /// let pokemon = client.fetch_random_pokemon().await?;

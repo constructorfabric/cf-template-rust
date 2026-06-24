@@ -1,4 +1,4 @@
-//! Object-safe streaming boundary for the product module.
+//! Object-safe streaming boundary for the product gear.
 //!
 //! Designed for `ClientHub` registration as `Arc<dyn ProductClientV1>`.
 
@@ -21,7 +21,7 @@ use crate::odata::ProductSchema;
 #[cfg(feature = "odata")]
 pub type ProductStream<T> = Pin<Box<dyn Stream<Item = Result<T, ProductError>> + Send + 'static>>;
 
-/// Object-safe client for inter-module consumption via `ClientHub` (Version 1).
+/// Object-safe client for inter-gear consumption via `ClientHub` (Version 1).
 #[async_trait]
 pub trait ProductClientV1: Send + Sync {
     #[cfg(feature = "odata")]

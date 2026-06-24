@@ -1,8 +1,8 @@
 # {{ project-name }}
 
-Product management module with REST API, database storage, and inter-module communication via `ClientHub`.
+Product management gear with REST API, database storage, and inter-gear communication via `ClientHub`.
 
-## Module Structure
+## Gear Structure
 
 ```
 {{ project-name }}/
@@ -19,7 +19,7 @@ Product management module with REST API, database storage, and inter-module comm
     ├── lib.rs                        # Crate root and public re-exports
     ├── config.rs                     # ProductConfig (page sizes)
     ├── errors.rs                     # API error definitions
-    ├── gear.rs                       # ProductModule — ToolKit registration point
+    ├── gear.rs                       # ProductGear — ToolKit registration point
     │
     ├── api/
     │   └── rest/
@@ -57,7 +57,7 @@ Product management module with REST API, database storage, and inter-module comm
 
 | Layer              | Package path                                | Rule                                                                     |
 |--------------------|---------------------------------------------|--------------------------------------------------------------------------|
-| **SDK**            | `{{ project-name }}-sdk` (`{{ crate_name }}_sdk`) | Public contract. No server code, no DB. Safe to expose to other modules. |
+| **SDK**            | `{{ project-name }}-sdk` (`{{ crate_name }}_sdk`) | Public contract. No server code, no DB. Safe to expose to other gears. |
 | **API**            | `crate::api`                                | HTTP concerns only. Translates HTTP ↔ domain. No business logic.         |
 | **Domain**         | `crate::domain`                             | Business logic and rules. Must not import `api::*` or `infra::*`.        |
 | **Infrastructure** | `crate::infra`                              | Database persistence. Implements domain repository traits.               |
@@ -146,15 +146,15 @@ handlers::list_product  (back in handler)
 JSON Response  (axum::Json<serde_json::Value>)
 ```
 
-### Inter-module communication (ClientHub)
+### Inter-gear communication (ClientHub)
 
-Other modules can consume this module without HTTP by obtaining the client from `ClientHub`:
+Other gears can consume this gear without HTTP by obtaining the client from `ClientHub`:
 
 ```
-gear.rs: ProductModule::init()
+gear.rs: ProductGear::init()
     └── registers Arc<ProductLocalClient> as dyn ProductClientV1
 
-Consumer module:
+Consumer gear:
     let client = hub.get::<dyn ProductClientV1>()?;
     let product = client.get_product(id).await?;
     // or stream all results:

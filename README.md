@@ -1,14 +1,14 @@
 # Skeletons to start with cyberfabric and modkit
 
-You can copy/paste what's inside `Init` or use the modules from `Modules` as a base for your projects.
+You can copy/paste what's inside `Init` or use the gears from `Modules` as a base for your projects.
 
 These templates are intended to work with [cyberfabric-cli](https://github.com/cyberfabric/cf-cli)
 
-Check the `README.md` in each of the modules to see the architecture and how it works.
+Check the `README.md` in each of the gears to see the architecture and how it works.
 
 ## Developing templates
 
-Generate a project manually with `cargo generate --path Init --name my-project` or `cargo generate --path Modules/<template> --name my-module`.
+Generate a project manually with `cargo generate --path Init --name my-project` or `cargo generate --path Modules/<template> --name my-gear`.
 
 The [cf-cli](https://github.com/cyberfabric/cf-cli) leverage this cargo-generate tool for the use cases inside cyberfabric.
 

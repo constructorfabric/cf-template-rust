@@ -1,10 +1,10 @@
 #![doc = include_str!("../README.md")]
 
-// ── Module definition (aggregate root) ──────────────────────────────────────
-mod module;
-pub use module::{{ project-name | pascal_case }};
+// ── Gear definition (aggregate root) ────────────────────────────────────────
+mod gear;
+pub use gear::{{ project-name | pascal_case }};
 
-// ── Internal sub-modules ─────────────────────────────────────────────────────
+// ── Internal crate modules ───────────────────────────────────────────────────
 mod config;
 pub mod middleware;
 mod web;

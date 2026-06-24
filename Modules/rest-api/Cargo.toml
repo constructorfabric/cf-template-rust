@@ -2,7 +2,7 @@
 name = "{{ project-name }}"
 version = "0.0.1"
 edition = "2024"
-description = "REST CRUD API module with in-memory users"
+description = "REST CRUD API gear with in-memory users"
 
 [dependencies]
 anyhow = "1.0"

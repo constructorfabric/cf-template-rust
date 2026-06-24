@@ -3,11 +3,11 @@
 // === API ERROR DEFINITIONS ===
 pub mod errors;
 
-// === MODULE DEFINITION ===
-pub mod module;
-pub use module::ProductModule;
+// === GEAR DEFINITION ===
+pub mod gear;
+pub use gear::ProductGear;
 
-// === INTERNAL MODULES ===
+// === INTERNAL CRATE MODULES ===
 pub(crate) mod api;
 pub(crate) mod config;
 pub(crate) mod domain;

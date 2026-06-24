@@ -5,7 +5,7 @@ use uuid::Uuid;
 
 use {{ crate_name }}_sdk::{NewUser, UpdateUserRequest, User, UserClientV1, UserError};
 
-use crate::module::ConcreteUserService;
+use crate::gear::ConcreteUserService;
 
 pub struct UserLocalClient {
     service: Arc<ConcreteUserService>,

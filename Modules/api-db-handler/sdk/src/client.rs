@@ -1,4 +1,4 @@
-//! Object-safe streaming boundary for the pokemon module.
+//! Object-safe streaming boundary for the pokemon gear.
 //!
 //! Designed for `ClientHub` registration as `Arc<dyn PokemonClientV1>`.
 
@@ -21,7 +21,7 @@ use crate::odata::PokemonSchema;
 #[cfg(feature = "odata")]
 pub type PokemonStream<T> = Pin<Box<dyn Stream<Item = Result<T, PokemonError>> + Send + 'static>>;
 
-/// Object-safe client for inter-module consumption via `ClientHub` (Version 1).
+/// Object-safe client for inter-gear consumption via `ClientHub` (Version 1).
 #[async_trait]
 pub trait PokemonClientV1: Send + Sync {
     #[cfg(feature = "odata")]
