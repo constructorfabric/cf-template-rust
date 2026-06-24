@@ -1,6 +1,6 @@
 //! `{{ project-name | pascal_case }}Config` — runtime configuration for the API gateway module.
 //!
-//! Loaded by `ModKit` from the host application's config file under the
+//! Loaded by `ToolKit` from the host application's config file under the
 //! `modules.{{ project-name }}.config` key.
 
 use serde::{Deserialize, Serialize};

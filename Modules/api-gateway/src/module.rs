@@ -23,7 +23,7 @@
 //! | DDD layer       | File(s)                          |
 //! |-----------------|----------------------------------|
 //! | Interface        | `web.rs` (HTTP handlers)        |
-//! | Application      | `module.rs` (this file)         |
+//! | Application      | `gear.rs` (this file)           |
 //! | Infrastructure   | `config.rs`, `middleware/`      |
 
 use std::net::SocketAddr;

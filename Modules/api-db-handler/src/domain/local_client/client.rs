@@ -11,7 +11,7 @@ use {{ crate_name }}_sdk::{Pokemon, PokemonClientV1, PokemonError};
 
 #[cfg(feature = "odata")]
 use crate::domain::local_client::streaming::LocalPokemonStreamingClient;
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 
 /// Local implementation of the object-safe `PokemonClientV1`.
 #[domain_model]

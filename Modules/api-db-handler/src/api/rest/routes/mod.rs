@@ -2,7 +2,7 @@
 
 #[cfg(feature = "odata")]
 use crate::api::rest::{dto, handlers};
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 use axum::Router;
 use toolkit::api::OpenApiRegistry;
 use std::sync::Arc;

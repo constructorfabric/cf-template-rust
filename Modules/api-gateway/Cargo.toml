@@ -9,7 +9,7 @@ name = "{{ crate_name }}"
 
 [dependencies]
 # cf-gears-toolkit — the backbone for module lifecycle and capability wiring
-cf-gears-toolkit = { version = "0.6.10" }
+cf-gears-toolkit = { version = "0.6.12" }
 
 # HTTP framework
 axum = "0.8"

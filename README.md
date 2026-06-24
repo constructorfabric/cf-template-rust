@@ -27,8 +27,11 @@ If you want to validate a single template with `bacon`, run one of the named job
 ```bash
 bacon validate-init
 bacon validate-api-db-handler
+bacon validate-api-fetcher
 bacon validate-background-worker
 bacon validate-api-gateway
+bacon validate-db-handler
+bacon validate-rest-api
 ```
 
 Without `bacon`, run the validation script directly from the repo root:
@@ -36,8 +39,11 @@ Without `bacon`, run the validation script directly from the repo root:
 ```bash
 ./scripts/validate-templates.sh Init
 ./scripts/validate-templates.sh Modules/api-db-handler generated-template
+./scripts/validate-templates.sh Modules/api-fetcher generated-template
 ./scripts/validate-templates.sh Modules/background-worker generated-template
 ./scripts/validate-templates.sh Modules/api-gateway generated-template
+./scripts/validate-templates.sh Modules/db-handler generated-template
+./scripts/validate-templates.sh Modules/rest-api generated-template
 ```
 
 To validate every template without `bacon`:
@@ -45,8 +51,11 @@ To validate every template without `bacon`:
 ```bash
 ./scripts/validate-templates.sh Init
 ./scripts/validate-templates.sh Modules/api-db-handler generated-template
+./scripts/validate-templates.sh Modules/api-fetcher generated-template
 ./scripts/validate-templates.sh Modules/background-worker generated-template
 ./scripts/validate-templates.sh Modules/api-gateway generated-template
+./scripts/validate-templates.sh Modules/db-handler generated-template
+./scripts/validate-templates.sh Modules/rest-api generated-template
 ```
 
 If you want bacon to watch the whole repository from the root, run `bacon --watch .`.

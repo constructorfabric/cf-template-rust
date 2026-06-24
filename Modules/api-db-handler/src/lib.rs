@@ -4,8 +4,8 @@
 pub mod errors;
 
 // === MODULE DEFINITION ===
-pub mod module;
-pub use module::PokemonModule;
+pub mod gear;
+pub use gear::PokemonGear;
 
 // === INTERNAL MODULES ===
 pub(crate) mod api;

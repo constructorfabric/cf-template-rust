@@ -19,7 +19,7 @@ Pokemon management module with REST API, database storage, and inter-module comm
     ├── lib.rs                        # Crate root and public re-exports
     ├── config.rs                     # PokemonConfig (page sizes)
     ├── errors.rs                     # API error definitions
-    ├── module.rs                     # PokemonModule — ToolKit registration point
+    ├── gear.rs                       # PokemonGear — ToolKit registration point
     │
     ├── api/
     │   └── rest/
@@ -151,7 +151,7 @@ JSON Response  (axum::Json<serde_json::Value>)
 Other modules can consume this module without HTTP by obtaining the client from `ClientHub`:
 
 ```
-module.rs: PokemonModule::init()
+gear.rs: PokemonGear::init()
     └── registers Arc<PokemonLocalClient> as dyn PokemonClientV1
 
 Consumer module:

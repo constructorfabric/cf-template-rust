@@ -1,0 +1,11 @@
+[package]
+name = "{{ project-name }}-sdk"
+version = "0.0.1"
+edition = "2024"
+
+# [lints]
+# workspace = true
+
+[dependencies]
+async-trait = { version = "0.1" }
+thiserror = { version = "2.0" }

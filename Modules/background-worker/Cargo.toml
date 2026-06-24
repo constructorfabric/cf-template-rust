@@ -8,8 +8,8 @@ edition = "2024"
 anyhow = { version = "1.0" }
 thiserror = { version = "2.0" }
 
-cf-gears-toolkit = { version = "0.6.10" }
-cf-modkit-http = { version = "0.6.5" }
+cf-gears-toolkit = { version = "0.6.12" }
+cf-gears-toolkit-http = { version = "0.6.7" }
 
 tracing = { version = "0.1" }
 

@@ -21,7 +21,7 @@ fetch capability to other modules via `ClientHub`.
     ├── infra/
     │   ├── mod.rs              # PokemonHttpRepository (HTTP impl of PokemonRepository)
     │   └── model.rs            # PokemonResponse (raw API shape)
-    └── module.rs               # {{ crate_name | pascal_case }}Module (modkit wiring)
+    └── gear.rs               # {{ crate_name | pascal_case }}Module (toolkit wiring)
 ```
 
 ### Layer responsibilities
@@ -53,10 +53,10 @@ gracefully via a `CancellationToken` when the application shuts down.
 
 ## Dependencies
 
-- `cf-modkit` — module framework (`Module`, `RunnableCapability`, `ModuleCtx`, `ClientHub`)
-- `cf-modkit-http` — `HttpClient` wrapper
+- `cf-gears-toolkit` — module framework (`Module`, `RunnableCapability`, `ModuleCtx`, `ClientHub`)
+- `cf-gears-toolkit-http` — `HttpClient` wrapper
 - `{{ project-name }}-sdk` — public SDK (path dependency)
-- `anyhow` — error handling in modkit boundaries
+- `anyhow` — error handling in toolkit boundaries
 - `thiserror` — `DomainError` derive
 - `async-trait` — object-safe async traits
 - `tokio` / `tokio-util` — async runtime and cancellation

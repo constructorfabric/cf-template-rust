@@ -1,0 +1,64 @@
+//! Domain service layer - business logic and rules.
+
+use std::sync::Arc;
+
+use toolkit_macros::domain_model;
+
+use crate::domain::repos::ProductRepository;
+use toolkit_db::DBProvider;
+use toolkit_db::odata::LimitCfg;
+
+mod product;
+
+pub(crate) use product::ProductService;
+
+pub(crate) type DbProvider = DBProvider<toolkit_db::DbError>;
+
+/// Configuration for the domain service
+#[domain_model]
+#[derive(Debug, Clone)]
+pub struct ServiceConfig {
+    pub default_page_size: u32,
+    pub max_page_size: u32,
+}
+
+impl Default for ServiceConfig {
+    fn default() -> Self {
+        Self {
+            default_page_size: 50,
+            max_page_size: 1000,
+        }
+    }
+}
+
+impl ServiceConfig {
+    #[must_use]
+    pub fn limit_cfg(&self) -> LimitCfg {
+        LimitCfg {
+            default: u64::from(self.default_page_size),
+            max: u64::from(self.max_page_size),
+        }
+    }
+}
+
+/// DI Container - aggregates all domain services
+#[domain_model]
+pub(crate) struct AppServices<PR>
+where
+    PR: ProductRepository + 'static,
+{
+    pub(crate) product: ProductService<PR>,
+}
+
+impl<PR> AppServices<PR>
+where
+    PR: ProductRepository + 'static,
+{
+    pub fn new(product_repo: PR, db: Arc<DbProvider>, config: ServiceConfig) -> Self {
+        let product_repo = Arc::new(product_repo);
+
+        Self {
+            product: ProductService::new(db, product_repo, config),
+        }
+    }
+}

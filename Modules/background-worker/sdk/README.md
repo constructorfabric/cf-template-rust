@@ -27,7 +27,7 @@ module itself.
 ```rust
 use {{ crate_name }}_sdk::PokemonClientV1;
 
-async fn example(hub: &ClientHub) -> modkit::Result<()> {
+async fn example(hub: &ClientHub) -> toolkit::Result<()> {
     let client = hub.get::<dyn PokemonClientV1>()?;
     let pokemon = client.fetch_random_pokemon().await?;
     println!("{} — height {}", pokemon.name, pokemon.height);

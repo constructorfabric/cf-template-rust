@@ -23,11 +23,11 @@ pub(crate) type ConcreteAppServices = AppServices<OrmPokemonRepository>;
     name = "{{ project-name }}",
     capabilities = [db, rest]
 )]
-pub struct PokemonModule {
+pub struct PokemonGear {
     service: OnceLock<Arc<ConcreteAppServices>>,
 }
 
-impl Default for PokemonModule {
+impl Default for PokemonGear {
     fn default() -> Self {
         Self {
             service: OnceLock::new(),
@@ -36,7 +36,7 @@ impl Default for PokemonModule {
 }
 
 #[async_trait]
-impl Gear for PokemonModule {
+impl Gear for PokemonGear {
     async fn init(&self, ctx: &GearCtx) -> anyhow::Result<()> {
         let cfg: PokemonConfig = ctx.config()?;
         debug!(
@@ -69,7 +69,7 @@ impl Gear for PokemonModule {
     }
 }
 
-impl DatabaseCapability for PokemonModule {
+impl DatabaseCapability for PokemonGear {
     fn migrations(&self) -> Vec<Box<dyn MigrationTrait>> {
         use sea_orm_migration::MigratorTrait;
         info!("Providing pokemon database migrations");
@@ -77,7 +77,7 @@ impl DatabaseCapability for PokemonModule {
     }
 }
 
-impl RestApiCapability for PokemonModule {
+impl RestApiCapability for PokemonGear {
     fn register_rest(
         &self,
         _ctx: &GearCtx,

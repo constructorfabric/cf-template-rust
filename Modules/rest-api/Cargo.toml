@@ -1,0 +1,24 @@
+[package]
+name = "{{ project-name }}"
+version = "0.0.1"
+edition = "2024"
+description = "REST CRUD API module with in-memory users"
+
+[dependencies]
+anyhow = "1.0"
+tracing = "0.1"
+{{ project-name }}-sdk = { path = "./sdk" }
+
+axum = { version = "0.8", features = ["macros"] }
+http = "1.4"
+parking_lot = "0.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+time = { version = "0.3.47", features = ["serde", "formatting", "parsing"] }
+utoipa = { version = "5.4", features = ["macros", "openapi_extensions", "uuid", "time"] }
+uuid = { version = "1.23", features = ["serde", "v7"] }
+
+cf-gears-toolkit = { version = "0.6.12" }
+cf-gears-toolkit-canonical-errors = { version = "0.7.4" }
+cf-gears-toolkit-macros = { version = "0.6.2" }
