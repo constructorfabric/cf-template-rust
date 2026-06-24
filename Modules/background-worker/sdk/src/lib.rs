@@ -1,7 +1,7 @@
 //! {{ project-name }} SDK
 //!
-//! This crate provides the public API for the `{{ project-name }}` module:
-//! - `PokemonClientV1` trait — the inter-module client interface
+//! This crate provides the public API for the `{{ project-name }}` gear:
+//! - `PokemonClientV1` trait — the inter-gear client interface
 //! - `Pokemon` — the public model type
 //! - `PokemonError` — the public error type
 //!

@@ -1,0 +1,22 @@
+[package]
+name = "{{ project-name }}"
+description = "Fetches public API data and exposes it through ClientHub"
+version = "0.0.1"
+edition = "2024"
+
+[dependencies]
+anyhow = { version = "1.0" }
+thiserror = { version = "2.0" }
+
+cf-gears-toolkit = { version = "0.6.12" }
+cf-gears-toolkit-http = { version = "0.6.7" }
+
+tracing = { version = "0.1" }
+
+tokio = { version = "1.52.3", features = ["full"] }
+tokio-util = { version = "0.7.18" }
+
+# Serialization
+serde = { version = "1.0.228", features = ["derive"] }
+
+{{ project-name }}-sdk = { path = "./sdk" }

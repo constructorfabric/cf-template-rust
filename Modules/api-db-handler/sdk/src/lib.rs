@@ -1,6 +1,6 @@
 //! Pokemon SDK
 //!
-//! Public API contract for the pokemon module:
+//! Public API contract for the pokemon gear:
 //! - `PokemonClientV1` trait
 //! - `Pokemon` model
 //! - `PokemonError` error type

@@ -1,4 +1,4 @@
-//! Public error types for the pokemon module.
+//! Public error types for the pokemon gear.
 
 use thiserror::Error;
 use uuid::Uuid;

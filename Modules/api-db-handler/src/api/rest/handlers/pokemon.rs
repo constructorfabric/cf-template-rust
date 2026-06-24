@@ -8,7 +8,7 @@ use toolkit::api::odata::OData;
 use super::{
     ApiResult, Json, JsonBody, JsonPage, PokemonDto, apply_select, page_to_projected_json,
 };
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 
 /// List pokemon with cursor-based pagination and optional field projection via $select
 #[tracing::instrument(

@@ -8,7 +8,7 @@ use toolkit_macros::domain_model;
 use toolkit_sdk::odata::{QueryBuilder, items_stream_boxed};
 use toolkit_sdk::pager::PagerError;
 
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 
 #[domain_model]
 pub(crate) struct LocalPokemonStreamingClient {
