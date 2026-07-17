@@ -1,12 +1,12 @@
 # {{ project-name }}
 
-API gateway module that owns the Axum router and serves health endpoints.
+API gateway gear that owns the Axum router and serves health endpoints.
 
 ## Overview
 
 The `{{ project-name }}` crate provides:
 
-- HTTP server lifecycle (bind, serve, graceful shutdown) via the `ModKit` `rest_host` capability
+- HTTP server lifecycle (bind, serve, graceful shutdown) via the `ToolKit` `rest_host` capability
 - `/health` — JSON health response with `status`, `timestamp`, and `version`
 - `/healthz` — plain-text `ok` for lightweight probes
 - Standard middleware stack: request ID propagation, distributed tracing, per-request timeout
@@ -27,7 +27,7 @@ Router / handlers
 ## Configuration
 
 ```yaml
-modules:
+gears:
   {{ project-name }}:
     config:
       bind_addr: "0.0.0.0:8080"   # default: 127.0.0.1:8080
@@ -39,7 +39,7 @@ modules:
 | Layer          | File(s)                            |
 |----------------|------------------------------------|
 | Interface      | `src/web.rs`                       |
-| Application    | `src/module.rs`                    |
+| Application    | `src/gear.rs`                      |
 | Infrastructure | `src/config.rs`, `src/middleware/` |
 
 ## License

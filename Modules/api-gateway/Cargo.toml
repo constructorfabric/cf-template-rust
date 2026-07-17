@@ -2,14 +2,14 @@
 name = "{{ project-name }}"
 version = "0.0.1"
 edition = "2024"
-description = "API gateway module with health endpoints and standard middleware"
+description = "API gateway gear with health endpoints and standard middleware"
 
 [lib]
 name = "{{ crate_name }}"
 
 [dependencies]
-# cf-gears-toolkit — the backbone for module lifecycle and capability wiring
-cf-gears-toolkit = { version = "0.6.10" }
+# cf-gears-toolkit — the backbone for gear lifecycle and capability wiring
+cf-gears-toolkit = { version = "0.6.12" }
 
 # HTTP framework
 axum = "0.8"
@@ -42,5 +42,5 @@ parking_lot = "0.12"
 # Short unique request IDs
 nanoid = "0.4"
 
-# Required for #[async_trait] on Module impl
+# Required for #[async_trait] on Gear impl
 async-trait = "0.1"

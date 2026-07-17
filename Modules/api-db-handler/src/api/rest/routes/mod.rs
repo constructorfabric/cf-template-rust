@@ -2,7 +2,7 @@
 
 #[cfg(feature = "odata")]
 use crate::api::rest::{dto, handlers};
-use crate::module::ConcreteAppServices;
+use crate::gear::ConcreteAppServices;
 use axum::Router;
 use toolkit::api::OpenApiRegistry;
 use std::sync::Arc;
@@ -10,7 +10,7 @@ use std::sync::Arc;
 #[cfg(feature = "odata")]
 mod pokemon;
 
-/// Register all routes for the pokemon module
+/// Register all routes for the pokemon gear
 pub(crate) fn register_routes(
     mut router: Router,
     openapi: &dyn OpenApiRegistry,

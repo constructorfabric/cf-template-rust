@@ -1,6 +1,6 @@
 use anyhow::Context;
 use toolkit::async_trait;
-use modkit_http::HttpClient;
+use toolkit_http::HttpClient;
 use std::time::{Duration, UNIX_EPOCH};
 
 use {{ crate_name }}_sdk::Pokemon;

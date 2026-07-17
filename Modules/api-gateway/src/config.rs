@@ -1,7 +1,7 @@
-//! `{{ project-name | pascal_case }}Config` — runtime configuration for the API gateway module.
+//! `{{ project-name | pascal_case }}Config` — runtime configuration for the API gateway gear.
 //!
-//! Loaded by `ModKit` from the host application's config file under the
-//! `modules.{{ project-name }}.config` key.
+//! Loaded by `ToolKit` from the host application's config file under the
+//! `gears.{{ project-name }}.config` key.
 
 use serde::{Deserialize, Serialize};
 
@@ -13,11 +13,11 @@ fn default_timeout_secs() -> u64 {
     30
 }
 
-/// Configuration for the API gateway module.
+/// Configuration for the API gateway gear.
 ///
 /// Example YAML:
 /// ```yaml
-/// modules:
+/// gears:
 ///   {{ project-name }}:
 ///     config:
 ///       bind_addr: "0.0.0.0:8080"

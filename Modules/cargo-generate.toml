@@ -1,3 +1,10 @@
 [template]
-sub_templates = ["background-worker", "api-db-handler", "api-gateway"]
+sub_templates = [
+    "api-db-handler",
+    "api-fetcher",
+    "api-gateway",
+    "background-worker",
+    "db-handler",
+    "rest-api",
+]
 ignore = [".DS_Store", ".gears", "target"]

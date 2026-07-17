@@ -13,16 +13,16 @@ use crate::infra::PokemonHttpRepository;
 
 #[toolkit::gear(name = "{{ project-name }}", capabilities = [stateful])]
 #[derive(Default)]
-pub struct {{ crate_name | pascal_case }}Module {
+pub struct {{ crate_name | pascal_case }}Gear {
     config: OnceLock<Config>,
     service: OnceLock<Arc<PokemonService>>,
     task_handle: Arc<Mutex<Option<JoinHandle<()>>>>,
 }
 
 #[async_trait]
-impl Gear for {{ crate_name | pascal_case }}Module {
+impl Gear for {{ crate_name | pascal_case }}Gear {
     async fn init(&self, ctx: &GearCtx) -> toolkit::Result<()> {
-        tracing::info!("Initializing {{ project-name }} module");
+        tracing::info!("Initializing {{ project-name }} gear");
         self.config
             .set(ctx.config::<Config>()?)
             .map_err(|_| anyhow::anyhow!("config already initialized"))?;
@@ -45,7 +45,7 @@ impl Gear for {{ crate_name | pascal_case }}Module {
 }
 
 #[async_trait]
-impl RunnableCapability for {{ crate_name | pascal_case }}Module {
+impl RunnableCapability for {{ crate_name | pascal_case }}Gear {
     async fn start(&self, cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
         tracing::info!("Starting {{ project-name }} background fetcher");
 
@@ -92,7 +92,7 @@ impl RunnableCapability for {{ crate_name | pascal_case }}Module {
     }
 
     async fn stop(&self, _cancel: tokio_util::sync::CancellationToken) -> toolkit::Result<()> {
-        tracing::info!("Stopping {{ project-name }} module");
+        tracing::info!("Stopping {{ project-name }} gear");
 
         if let Some(handle) = self.task_handle.lock().await.take() {
             if let Err(e) = handle.await {

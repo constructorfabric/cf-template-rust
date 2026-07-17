@@ -1,10 +1,10 @@
-default_job = "validate-templates"
+default_job = "all-template-validation"
 
-[jobs.validate-templates]
+[jobs.all-template-validation]
 command = [
     "bash",
     "-lc",
-    "./scripts/validate-templates.sh Init && ./scripts/validate-templates.sh Modules/api-db-handler generated-template && ./scripts/validate-templates.sh Modules/background-worker generated-template && ./scripts/validate-templates.sh Modules/api-gateway generated-template",
+    "./scripts/validate-templates.sh Init && ./scripts/validate-templates.sh Modules/api-db-handler generated-template && ./scripts/validate-templates.sh Modules/api-fetcher generated-template && ./scripts/validate-templates.sh Modules/background-worker generated-template && ./scripts/validate-templates.sh Modules/api-gateway generated-template && ./scripts/validate-templates.sh Modules/db-handler generated-template && ./scripts/validate-templates.sh Modules/rest-api generated-template",
 ]
 need_stdout = true
 background = false
@@ -22,7 +22,6 @@ watch = ["Init", "bacon.toml", "scripts/validate-templates.sh"]
 command = [
     "./scripts/validate-templates.sh",
     "Modules/api-db-handler",
-    "generated-template",
 ]
 need_stdout = true
 background = false
@@ -37,7 +36,6 @@ watch = [
 command = [
     "./scripts/validate-templates.sh",
     "Modules/background-worker",
-    "generated-template",
 ]
 need_stdout = true
 background = false
@@ -52,9 +50,50 @@ watch = [
 command = [
     "./scripts/validate-templates.sh",
     "Modules/api-gateway",
-    "generated-template",
 ]
 need_stdout = true
 background = false
 on_change_strategy = "kill_then_restart"
 watch = ["Modules/api-gateway", "bacon.toml", "scripts/validate-templates.sh"]
+
+[jobs.validate-api-fetcher]
+command = [
+    "./scripts/validate-templates.sh",
+    "Modules/api-fetcher",
+]
+need_stdout = true
+background = false
+on_change_strategy = "kill_then_restart"
+watch = [
+    "Modules/api-fetcher",
+    "bacon.toml",
+    "scripts/validate-templates.sh",
+]
+
+[jobs.validate-db-handler]
+command = [
+    "./scripts/validate-templates.sh",
+    "Modules/db-handler",
+]
+need_stdout = true
+background = false
+on_change_strategy = "kill_then_restart"
+watch = [
+    "Modules/db-handler",
+    "bacon.toml",
+    "scripts/validate-templates.sh",
+]
+
+[jobs.validate-rest-api]
+command = [
+    "./scripts/validate-templates.sh",
+    "Modules/rest-api",
+]
+need_stdout = true
+background = false
+on_change_strategy = "kill_then_restart"
+watch = [
+    "Modules/rest-api",
+    "bacon.toml",
+    "scripts/validate-templates.sh",
+]

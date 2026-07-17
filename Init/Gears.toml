@@ -3,6 +3,6 @@ version = 1
 
 [apps.quickstart.dev]
 config = "quickstart.yml"
-modules = [
+gears = [
     { source = "local", name = "hello-world" },
 ]
